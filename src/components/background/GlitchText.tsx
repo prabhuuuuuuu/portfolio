@@ -29,7 +29,7 @@ export function GlitchText({ children, className = "" }: { children: string; cla
       }, delay);
     };
     schedule();
-    return () => clearTimeout(timeoutRef.current);
+    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
   }, []);
 
   return (
