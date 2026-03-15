@@ -40,7 +40,7 @@ export function ScrollRevealSection({
 }: {
   children: React.ReactNode;
   className?: string;
-  as?: keyof JSX.IntrinsicElements;
+  as?: keyof React.JSX.IntrinsicElements
   [key: string]: unknown;
 }) {
   const ref = useRef<HTMLElement>(null);
