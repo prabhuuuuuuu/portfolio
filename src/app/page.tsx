@@ -384,10 +384,10 @@ export default function Portfolio() {
               <a href="mailto:pranavprashantshewale@gmail.com" className="p-3 bg-surface border border-secondary/20 rounded-full text-secondary hover:text-accent hover:border-accent/50 hover:bg-background transition-all" aria-label="Email">
                 <Mail className="w-6 h-6" />
               </a>
-              <a href="https://linkedin.com/in/" className="p-3 bg-surface border border-secondary/20 rounded-full text-secondary hover:text-accent hover:border-accent/50 hover:bg-background transition-all" aria-label="LinkedIn">
+              <a href="https://www.linkedin.com/in/pranav-shewale/" className="p-3 bg-surface border border-secondary/20 rounded-full text-secondary hover:text-accent hover:border-accent/50 hover:bg-background transition-all" aria-label="LinkedIn">
                 <Linkedin className="w-6 h-6" />
               </a>
-              <a href="https://github.com/" className="p-3 bg-surface border border-secondary/20 rounded-full text-secondary hover:text-accent hover:border-accent/50 hover:bg-background transition-all" aria-label="GitHub">
+              <a href="https://github.com/prabhuuuuuuu" className="p-3 bg-surface border border-secondary/20 rounded-full text-secondary hover:text-accent hover:border-accent/50 hover:bg-background transition-all" aria-label="GitHub">
                 <Github className="w-6 h-6" />
               </a>
             </motion.div>
