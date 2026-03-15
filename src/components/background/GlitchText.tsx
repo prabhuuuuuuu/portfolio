@@ -8,7 +8,7 @@ const GLITCH_INTERVAL_MAX = 10000;
 export function GlitchText({ children, className = "" }: { children: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [glitching, setGlitching] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(0);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const trigger = () => {
     if (glitching) return;
