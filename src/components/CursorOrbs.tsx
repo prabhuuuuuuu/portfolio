@@ -1,28 +1,44 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
+
+type Orb = {
+  x: number;
+  y: number;
+  baseX: number;
+  baseY: number;
+  size: number;
+  blur: number;
+  opacity: number;
+};
 
 const ORB_COUNT = 12;
 const ORB_BASE_SIZE = 80;
 const ORB_INFLUENCE = 140;
 const ORB_SMOOTH = 0.06;
 
+function createOrbs(): Orb[] {
+  return Array.from({ length: ORB_COUNT }, () => ({
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    baseX: Math.random() * 100,
+    baseY: Math.random() * 100,
+    size: 40 + Math.random() * ORB_BASE_SIZE,
+    blur: 40 + Math.random() * 60,
+    opacity: 0.03 + Math.random() * 0.06,
+  }));
+}
+
 export function CursorOrbs() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const mouseRef = useRef({ x: 50, y: 50 });
-  const orbsRef = useRef(
-    Array.from({ length: ORB_COUNT }, () => ({
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      baseX: Math.random() * 100,
-      baseY: Math.random() * 100,
-      size: 40 + Math.random() * ORB_BASE_SIZE,
-      blur: 40 + Math.random() * 60,
-      opacity: 0.03 + Math.random() * 0.06,
-    }))
-  );
+  const orbsRef = useRef<Orb[]>([]);
 
   useEffect(() => {
+    if (orbsRef.current.length === 0) {
+      orbsRef.current = createOrbs();
+    }
+
     const handleMove = (e: MouseEvent) => {
       mouseRef.current = {
         x: (e.clientX / window.innerWidth) * 100,

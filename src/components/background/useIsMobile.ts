@@ -1,19 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const nav = navigator as Navigator & { maxTouchPoints?: number };
-    const touch =
-      "ontouchstart" in window || (nav.maxTouchPoints ?? 0) > 0;
-    const smallScreen = window.innerWidth <= 768;
-    setIsMobile(touch || smallScreen);
-  }, []);
-
-  return isMobile;
+function detectMobile() {
+  if (typeof window === "undefined") return false;
+  const nav = navigator as Navigator & { maxTouchPoints?: number };
+  const touch = "ontouchstart" in window || (nav.maxTouchPoints ?? 0) > 0;
+  const smallScreen = window.innerWidth <= 768;
+  return touch || smallScreen;
 }
 
+export function useIsMobile() {
+  const [isMobile] = useState(detectMobile);
+  return isMobile;
+}

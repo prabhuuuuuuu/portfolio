@@ -1,0 +1,71 @@
+PRANAV PRASHANT SHEWALE
+Chennai, India
+Email: pranavprashantshewale@gmail.com
+Phone: +91 8087972894
+LinkedIn: https://www.linkedin.com/in/pranav-shewale/
+GitHub: https://github.com/prabhuuuuuuu
+
+EDUCATION
+Vellore Institute of Technology, Chennai Campus
+BTech in Computer Science and Engineering
+GPA: 8.5/10.0
+Jul 2024 - Present
+
+SBS College, Karad
+PCM (HSC Board)
+84.66%
+2022 - 2024
+
+Tilak Highschool, Karad
+SSC Board
+97.40%
+2020 - 2022
+
+WORK EXPERIENCE
+UrbanDienst - Computer Vision Intern (Remote)
+Nov 2025 - Feb 2026
+- Deployed YOLOv8 object detection models for PPE compliance, traffic monitoring, and pose estimation on MemryX edge chips.
+- Optimized quantization for real-time inference, achieving 45 FPS at 22 ms latency under 50 MB memory.
+
+IIT Mandi - Artificial Intelligence + Robotics Intern
+Apr 2025 - Oct 2025
+- Investigated deep learning techniques for limited unlabeled datasets and applied self-supervised learning, improving F1-score by 18%.
+- Engineered a reinforcement learning pipeline for biped locomotion and trained a PPO policy reaching 85% success across multi-terrain environments.
+
+Vellore Institute of Technology - Artificial Intelligence Intern
+Sep 2024 - Present
+- Built an end-to-end ViT + DETR waste sorting pipeline in PyTorch and deployed an ONNX model on Raspberry Pi, achieving 30 FPS inference at 0.87 mAP.
+- Developed an AI perception engine using YOLOv8 + StrongSORT to extract real-time behavioral metrics such as speed and lane discipline at 25 FPS.
+
+PUBLICATION
+TongueSight: AI-Powered Tongue Analysis for Digitizing Traditional Medicine Diagnostics
+Published at the 14th International Conference on Graphics, Vision and Image Processing (ICVGIP 2025)
+- Developed a hybrid deep learning pipeline using YOLOv8 for coarse detection and Mask2Former, SegNet, and EfficientNet-B0 for fine-grained segmentation.
+- Extracted clinically relevant tongue features including coating, jaggedness, cracks, filiform papillae size, and fungiform redness.
+- Achieved 92.0% accuracy, outperforming prior methods such as TongueNet (89.12%) and Cv-Swin (87.37%).
+
+PROJECTS
+Local Agentic Newsroom
+- Built a LangGraph + LangChain orchestration system coordinating five agents: Researcher, Writer, Critic, Image Generator, and Publisher.
+- Implemented checkpoint-based state management, conditional routing, and human-in-the-loop approval workflows.
+- Developed a Streamlit dashboard with event streaming, Tavily Search integration, Stability AI SD 3.5 support, and Ollama (Llama 3) runtime integration.
+
+Advanced Driver Fatigue Detection System
+- Engineered a CNN + MobileNetV2 architecture with dlib facial landmark detection to analyze eye closure, yawning, and head pose.
+- Optimized a TensorFlow + OpenCV pipeline for Raspberry Pi deployment, achieving 30 FPS inference with sub-50 ms latency and 95% accuracy.
+
+TECHNICAL SKILLS
+Programming Languages: Python, C/C++, Java, SQL
+ML / DL / CV: PyTorch, TensorFlow, YOLOv8, ViT, DETR, Mask2Former, StrongSORT, OpenCV, ONNX, MobileNetV2, CNN, BiLSTM, dlib
+AI Systems: LangGraph, RAG
+Edge Deployment: Raspberry Pi, MemryX, Docker, FastAPI, WebSockets, TensorFlow Lite
+
+CLUBS AND TEAMS
+Genesis - VIT Chennai, Software and AI/ML Member
+Aug 2025 - Present
+
+Google Developer Groups on Campus - VIT Chennai, Data Science Team Member
+Jul 2025 - Present
+
+Google Developer Groups on Campus - VIT Chennai, Management Team Member
+Oct 2024 - May 2025

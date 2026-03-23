@@ -1,24 +1,29 @@
 "use client";
 
-import React, { useRef, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const GLITCH_INTERVAL_MIN = 5000;
 const GLITCH_INTERVAL_MAX = 10000;
 
 export function GlitchText({ children, className = "" }: { children: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [glitching, setGlitching] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const glitchingRef = useRef(false);
+  const [glitching, setGlitching] = useState(false);
 
-  const trigger = () => {
-    if (glitching) return;
+  const trigger = useCallback(() => {
+    if (glitchingRef.current) return;
+
+    glitchingRef.current = true;
     setGlitching(true);
-    if (ref.current) ref.current.classList.add("glitch-active");
-    setTimeout(() => {
-      if (ref.current) ref.current.classList.remove("glitch-active");
+    ref.current?.classList.add("glitch-active");
+
+    timeoutRef.current = setTimeout(() => {
+      ref.current?.classList.remove("glitch-active");
+      glitchingRef.current = false;
       setGlitching(false);
     }, 250);
-  };
+  }, []);
 
   useEffect(() => {
     const schedule = () => {
@@ -28,9 +33,12 @@ export function GlitchText({ children, className = "" }: { children: string; cla
         schedule();
       }, delay);
     };
+
     schedule();
-    return () => { if (timeoutRef.current) clearTimeout(timeoutRef.current); };
-  }, []);
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, [trigger]);
 
   return (
     <span

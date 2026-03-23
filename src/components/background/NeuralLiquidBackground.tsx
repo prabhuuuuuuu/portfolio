@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { useIsMobile } from "./useIsMobile";
-import { useReducedMotion, COLORS } from "./useReducedMotion";
+import { useReducedMotion } from "./useReducedMotion";
 
 interface NeuralLiquidBackgroundProps {
   hoverState?: number;
@@ -403,4 +403,5 @@ export function NeuralLiquidBackground({
 
   return <div ref={containerRef} className="fixed inset-0 -z-10" aria-hidden />;
 }
+
 

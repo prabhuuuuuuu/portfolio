@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const COLORS = {
   bg: "#0a0a0a",
@@ -8,17 +8,15 @@ const COLORS = {
   cyan: "#06b6d4",
 } as const;
 
+function detectReducedMotion() {
+  if (typeof window === "undefined") return true;
+  const isTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return isTouch || prefersReduced;
+}
+
 export function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(true);
-
-  useEffect(() => {
-    const isTouch =
-      typeof window !== "undefined" &&
-      ("ontouchstart" in window || navigator.maxTouchPoints > 0);
-    const prefersReduced = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    setReduced(isTouch || prefersReduced);
-  }, []);
-
+  const [reduced] = useState(detectReducedMotion);
   return reduced;
 }
 

@@ -80,7 +80,7 @@ export function MeshBackground() {
       const mx = mouse.x * scaleX;
       const my = mouse.y * scaleY;
 
-      points.forEach((p, i) => {
+      points.forEach((p) => {
         const dx = mx - p.baseX * dpr;
         const dy = my - p.baseY * dpr;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -142,3 +142,4 @@ export function MeshBackground() {
     />
   );
 }
+
