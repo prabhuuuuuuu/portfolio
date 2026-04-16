@@ -1,23 +1,13 @@
-<<<<<<< HEAD
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 import "./background.css";
 import "./dashboard.css";
 
-export const metadata: Metadata = {
-  title: "Pranav Prashant Shewale | AI Engineer & CV Researcher",
-  description:
-    "Developer-first portfolio for Pranav Prashant Shewale featuring multi-agent systems, computer vision research, edge AI deployment, and production-grade engineering work.",
-=======
-import type { Metadata, Viewport } from "next";
-import type { ReactNode } from "react";
-import "./globals.css";
-
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
-const title = "Pranav Prashant Shewale | AI Engineer";
+const title = "Pranav Prashant Shewale | AI Engineer & CV Researcher";
 const description =
-  "Portfolio of Pranav Prashant Shewale, an AI engineer building multi-agent systems, computer vision products, and edge-ready deployments.";
+  "Developer-first portfolio for Pranav Prashant Shewale featuring multi-agent systems, computer vision research, edge AI deployment, and production-grade engineering work.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -70,7 +60,6 @@ export const viewport: Viewport = {
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
     { media: "(prefers-color-scheme: dark)", color: "#0f0f0f" },
   ],
->>>>>>> main
 };
 
 export default function RootLayout({
@@ -79,11 +68,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-<<<<<<< HEAD
     <html lang="en" className="scroll-smooth">
-=======
-    <html lang="en">
->>>>>>> main
       <body>{children}</body>
     </html>
   );

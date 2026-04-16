@@ -1,14 +1,13 @@
-<<<<<<< HEAD
 @import "tailwindcss";
 
 @theme inline {
-  --background: #02050a;
-  --surface: #060a11;
-  --panel: #09111a;
-  --foreground: #f3f6fb;
-  --muted: #8a95a8;
-  --accent-cyan: #39d0ff;
-  --accent-orange: #ff9852;
+  --background: #070b13;
+  --surface: rgba(15, 19, 31, 0.82);
+  --panel: rgba(20, 25, 40, 0.9);
+  --foreground: #f5f7fb;
+  --muted: #a9b0c1;
+  --accent-cyan: #2563eb;
+  --accent-orange: #fb7185;
   --accent-green: #55e6a5;
   --grid-line: rgba(67, 78, 98, 0.16);
   --color-background: var(--background);
@@ -18,7 +17,8 @@
   --color-accent: var(--accent-cyan);
   --font-sans: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "Fira Code", "Roboto Mono", monospace;
-=======
+}
+
 :root {
   --bg: #070b13;
   --bg-elevated: rgba(14, 19, 31, 0.82);
@@ -44,7 +44,6 @@
   --cursor-y: 50vh;
   --scroll-progress: 0;
   --parallax-y: 0px;
->>>>>>> main
 }
 
 * {
@@ -58,19 +57,6 @@ html {
 body {
   min-height: 100vh;
   margin: 0;
-<<<<<<< HEAD
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Inter", system-ui, sans-serif;
-  text-rendering: optimizeLegibility;
-}
-
-body,
-input,
-button,
-textarea,
-select {
-=======
   background:
     radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 28%),
     radial-gradient(circle at top right, rgba(139, 92, 246, 0.07), transparent 30%),
@@ -79,9 +65,16 @@ select {
   font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 300;
   text-rendering: optimizeLegibility;
->>>>>>> main
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body,
+input,
+button,
+textarea,
+select {
+  font: inherit;
 }
 
 a {
@@ -89,59 +82,20 @@ a {
   text-decoration: none;
 }
 
-<<<<<<< HEAD
-=======
 img {
   display: block;
   max-width: 100%;
 }
 
->>>>>>> main
-button,
-input,
-textarea,
-select {
-  font: inherit;
-}
-
-<<<<<<< HEAD
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "JetBrains Mono", "Fira Code", "Roboto Mono", monospace;
+  font-family: inherit;
 }
 
-:focus-visible {
-  outline: 2px solid var(--accent-cyan);
-  outline-offset: 2px;
-}
-
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--background);
-}
-
-::-webkit-scrollbar-thumb {
-  background: #111a27;
-  border-radius: 999px;
-  border: 2px solid var(--background);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #1a273a;
-}
-
-::selection {
-  background: rgba(57, 208, 255, 0.24);
-  color: #ffffff;
-}
-=======
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 4px;
@@ -1226,4 +1180,3 @@ body::before {
     transform: none !important;
   }
 }
->>>>>>> main
