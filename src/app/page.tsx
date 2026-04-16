@@ -1,5 +1,11 @@
+"use client";
+import { useEffect, useState } from "react";
 import Image from "next/image";
-import { ScrollReveal } from "@/components/ScrollReveal";
+import { WireframeBox } from "@/components/WireframeBox";
+import { ScribbleArrow } from "@/components/ScribbleArrow";
+import { StickyNote } from "@/components/StickyNote";
+import { AnimatedCat } from "@/components/AnimatedCat";
+import { MarginDoodle } from "@/components/MarginDoodle";
 
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
 
@@ -8,57 +14,41 @@ const sections = [
   { id: "projects", label: "Projects", number: "01." },
   { id: "experience", label: "Experience", number: "02." },
   { id: "skills", label: "Skills", number: "03." },
-  { id: "uses", label: "Uses", number: "04." },
-  { id: "contact", label: "Contact", number: "05." },
+  { id: "contact", label: "Contact", number: "04." },
 ] as const;
 
-type Project = {
-  title: string;
-  problem: string;
-  outcome: string;
-  tech: string[];
-  githubHref?: string;
-  liveHref?: string;
-  eyebrow: string;
-  metric: string;
-  tone: "blue" | "purple" | "coral";
-};
-
-const projects: Project[] = [
+const projects = [
   {
     title: "AI Newsroom Agent",
     eyebrow: "Editorial system",
     problem:
-      "Turns research, drafting, critique, and publishing into one clear editorial workflow instead of a stack of disconnected manual steps.",
+      "Turns research, drafting, critique, and publishing into one clear editorial workflow instead of disconnected manual steps.",
     outcome:
       "Cuts article research time by 70% through multi-agent orchestration, checkpointed state, and review gates before publish.",
-    tech: ["LangGraph", "Ollama", "FastAPI", "LangChain", "Streamlit"],
+    tech: ["LangGraph", "Ollama", "FastAPI", "React"],
     githubHref: "https://github.com/prabhuuuuuuu/agentic_newsroom",
     metric: "70% faster research",
-    tone: "blue",
   },
   {
     title: "Driver Fatigue Detection",
     eyebrow: "Edge safety",
     problem:
-      "Detects eye closure, yawning, and head-pose drift early enough for edge devices to support real-time driver safety decisions.",
+      "Detects eye closure, yawning, and head-pose drift early enough for edge devices to support real-time driver safety.",
     outcome:
       "Reached 95% accuracy with sub-50 ms latency and stable 30 FPS inference on Raspberry Pi hardware.",
-    tech: ["TensorFlow", "OpenCV", "MobileNetV2", "dlib", "Raspberry Pi"],
+    tech: ["TensorFlow", "OpenCV", "MobileNetV2", "Raspberry Pi"],
     githubHref: "https://github.com/prabhuuuuuuu/driver_fatigue",
     metric: "95% accuracy",
-    tone: "coral",
   },
   {
     title: "Waste Sorting Vision Pipeline",
     eyebrow: "Real-time classification",
     problem:
-      "Automates material classification on constrained hardware so sorting decisions can happen at the edge without cloud dependency.",
+      "Automates material classification on constrained hardware so sorting decisions can happen at the edge without cloud.",
     outcome:
       "Delivered 0.87 mAP at 30 FPS by deploying a ViT + DETR pipeline through ONNX on Raspberry Pi.",
-    tech: ["PyTorch", "ViT", "DETR", "ONNX", "Raspberry Pi"],
+    tech: ["PyTorch", "ViT", "ONNX", "Raspberry Pi"],
     metric: "0.87 mAP at 30 FPS",
-    tone: "purple",
   },
 ];
 
@@ -67,142 +57,105 @@ const experience = [
     role: "Computer Vision Intern",
     company: "UrbanDienst",
     dates: "Nov 2025 - Feb 2026",
-    tone: "blue",
     bullets: [
-      "45 FPS at 22 ms latency on MemryX edge chips after quantizing YOLOv8 pipelines for PPE, traffic, and pose monitoring.",
-      "Under 50 MB memory footprint while keeping real-time inference practical for production-style deployment constraints.",
+      "45 FPS at 22 ms latency on MemryX edge chips after quantizing YOLOv8 pipelines.",
+      "Maintained sub 50 MB memory footprint while keeping real-time inference practical.",
     ],
   },
   {
     role: "AI + Robotics Intern",
     company: "IIT Mandi",
     dates: "Apr 2025 - Oct 2025",
-    tone: "purple",
     bullets: [
-      "18% F1 improvement on limited unlabeled data by applying self-supervised learning to a constrained research setting.",
-      "85% multi-terrain success from a PPO locomotion policy built for biped robotics experiments and checkpointed training runs.",
+      "18% F1 improvement on limited unlabeled data by applying self-supervised learning.",
+      "85% multi-terrain success from a PPO locomotion policy built for biped robotics.",
     ],
   },
   {
     role: "AI Intern",
     company: "VIT Chennai",
     dates: "Sep 2024 - Present",
-    tone: "coral",
     bullets: [
-      "30 FPS waste sorting inference at 0.87 mAP after deploying a ViT + DETR pipeline to Raspberry Pi with ONNX.",
-      "25 FPS behavioral tracking from a YOLOv8 + StrongSORT perception system measuring speed and lane-discipline signals in real time.",
+      "30 FPS waste sorting inference at 0.87 mAP using a ViT + DETR pipeline on Raspberry Pi.",
+      "25 FPS behavioral tracking from a YOLOv8 + StrongSORT perception system.",
     ],
   },
-] as const;
+];
 
 const skillGroups = [
   {
-    name: "ml",
-    items: ["PyTorch", "TensorFlow", "YOLOv8", "ViT", "DETR", "Mask2Former", "OpenCV"],
-  },
-  {
-    name: "backend",
-    items: ["Python", "FastAPI", "SQL", "WebSockets", "LangGraph", "LangChain", "RAG"],
+    name: "core",
+    items: ["Python", "PyTorch", "TensorFlow", "Computer Vision", "Multi-Agent Systems"],
   },
   {
     name: "tools",
-    items: ["Docker", "Git", "Ollama", "Streamlit", "Raspberry Pi", "MemryX", "ONNX"],
-  },
-] as const;
-
-const uses = [
-  {
-    title: "Dev setup",
-    body: "Next.js for the front-end shell, FastAPI for APIs, and Ollama when I want local model runs without extra cloud overhead.",
-    items: ["Next.js", "FastAPI", "Ollama", "GitHub"],
+    items: ["FastAPI", "React", "Docker", "Git", "Ollama", "ONNX"],
   },
   {
-    title: "Edge lab",
-    body: "Most experiments stay close to deployment reality, so Raspberry Pi, ONNX, MemryX, and camera-first CV tooling show up often.",
-    items: ["Raspberry Pi", "ONNX", "MemryX", "OpenCV"],
+    name: "hardware",
+    items: ["Raspberry Pi", "MemryX NPU", "Edge Deployments"],
   },
-  {
-    title: "Workflow",
-    body: "I like lightweight systems that make iteration fast: clean dashboards, measurable checkpoints, and tools that stay easy to reason about.",
-    items: ["LangGraph", "Streamlit", "Docker", "Metrics-first"],
-  },
-] as const;
+];
 
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: "Pranav Prashant Shewale",
   url: siteUrl,
-  image: `${siteUrl}/images/cutout.png`,
   jobTitle: "AI Engineer and Computer Vision Researcher",
-  description:
-    "AI engineer focused on multi-agent systems, computer vision, and edge-ready products with measurable outcomes.",
+  description: "AI engineer focused on multi-agent systems, computer vision, and edge-ready products.",
   email: "mailto:pranavprashantshewale@gmail.com",
-  address: {
-    "@type": "PostalAddress",
-    addressLocality: "Chennai",
-    addressCountry: "India",
-  },
-  alumniOf: {
-    "@type": "CollegeOrUniversity",
-    name: "Vellore Institute of Technology, Chennai Campus",
-  },
-  sameAs: [
-    "https://www.linkedin.com/in/pranav-shewale/",
-    "https://github.com/prabhuuuuuuu",
-  ],
-  knowsAbout: [
-    "Multi-agent systems",
-    "Computer vision",
-    "Edge AI",
-    "FastAPI",
-    "LangGraph",
-    "Deep learning",
-  ],
 };
 
-function renderWordLine(text: string, delayBase = 0) {
-  return (
-    <span className="word-line" aria-hidden="true">
-      {text.split(" ").map((word, index) => (
-        <span key={`${word}-${index}`} className="word-mask">
-          <span className="word" style={{ animationDelay: `${delayBase + index * 60}ms` }}>
-            {word}
-          </span>
-        </span>
-      ))}
-    </span>
-  );
-}
-
-function SectionDivider() {
-  return (
-    <div className="section-divider" aria-hidden="true">
-      <span className="section-divider__line" />
-      <span className="section-divider__marker section-divider__marker--diamond" />
-      <span className="section-divider__marker section-divider__marker--dot" />
-    </div>
-  );
-}
-
 export default function HomePage() {
+  const [konami, setKonami] = useState(false);
+  
+  useEffect(() => {
+    console.log("// thanks for viewing the wireframe. the real build is just as messy.");
+    
+    // Konami code easter egg
+    const konamiCode = [
+      "ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown",
+      "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight",
+      "b", "a"
+    ];
+    let konamiIndex = 0;
+    
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+          setKonami(prev => !prev);
+          konamiIndex = 0;
+        }
+      } else {
+        konamiIndex = 0;
+      }
+    };
+    
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  if (konami) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-white text-black font-sans">
+        <div className="text-center">
+          <h1 className="text-4xl font-bold mb-4">Final Mockup Mode</h1>
+          <p>This is too clean. Press Konami code again to go back to the real work.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
       />
-      <noscript>
-        <style>{`[data-reveal], .word { opacity:1 !important; transform:none !important; }`}</style>
-      </noscript>
 
       <div className="site-shell">
-        <div className="mesh-layer" aria-hidden="true">
-          <div className="mesh-orb mesh-orb--blue" />
-          <div className="mesh-orb mesh-orb--purple" />
-          <div className="mesh-orb mesh-orb--black" />
-        </div>
-
         <aside className="section-rail" aria-label="Section progress">
           <div className="section-rail__line" />
           <nav className="section-dots">
@@ -211,7 +164,6 @@ export default function HomePage() {
                 key={section.id}
                 href={`#${section.id}`}
                 className="section-dot"
-                data-nav-dot={section.id}
                 aria-label={section.label}
               >
                 <span />
@@ -224,261 +176,246 @@ export default function HomePage() {
         <div className="page-frame">
           <header className="site-header">
             <div className="site-header__inner">
-              <a href="#hero" className="site-brand" aria-label="Go to top of page">
-                Pranav Shewale
+              <a href="#hero" className="site-brand flex items-center" aria-label="Go to top of page">
+                <AnimatedCat /> <span className="wiggle-on-hover mt-1">[ Pranav Shewale ]</span>
               </a>
               <nav className="site-nav" aria-label="Section navigation">
                 {sections.slice(1).map((section) => (
-                  <a key={section.id} href={`#${section.id}`} data-nav-link={section.id}>
+                  <a key={section.id} href={`#${section.id}`}>
                     {section.label}
                   </a>
                 ))}
-                <a
-                  href="/pranav-prashant-shewale-resume.pdf"
-                  download
-                  className="site-nav__resume"
-                >
-                  Resume
-                </a>
               </nav>
             </div>
           </header>
 
           <main className="site-main">
             <div className="content-grid">
-              <section id="hero" className="section section--hero" data-section>
-                <div className="hero-panel">
-                  <div className="hero-copy">
-                    <p className="eyebrow eyebrow--accent">00. Intro</p>
-                    <h1 aria-label="Pranav Prashant Shewale">
-                      {renderWordLine("Pranav Prashant", 0)}
-                      {renderWordLine("Shewale", 120)}
+              
+              {/* HERO */}
+              <section id="hero" className="section">
+                <WireframeBox className="col-span-full md:col-span-12 p-8 md:p-12 relative !bg-transparent !border-0 !box-shadow-none">
+                  <div className="max-w-3xl">
+                    <div className="inline-block px-3 py-1 mb-4 border-2 border-dashed border-[#1a1a1a] rounded font-mono text-sm uppercase">
+                      <span className="opacity-70">&lt;</span> Role: AI Engineer <span className="opacity-70">/&gt;</span>
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-bold font-mono tracking-tight mb-6">
+                      Pranav Prashant<br/>Shewale
                     </h1>
-                    <p className="hero-role">i build ai systems that run anywhere.</p>
-                    <p className="hero-summary">
-                      engineering agentic systems and foundational ai optimized for the edge. i
-                      turn heavy architectures into lightweight, autonomous deployments.
-                      intelligence without the cloud tether.
+                    
+                    <p className="text-xl md:text-2xl text-[#555] font-sans leading-relaxed max-w-2xl">
+                      i build ai systems that run anywhere.<br/>
+                      engineering agentic systems and foundational ai optimized for the edge. i turn heavy architectures into lightweight, autonomous deployments. intelligence without the cloud tether.
                     </p>
-                    <div className="button-row">
-                      <a
-                        href="/pranav-prashant-shewale-resume.pdf"
-                        download
-                        className="button button--primary"
-                        data-magnetic
-                      >
-                        Download resume
+                    
+                    <div className="mt-12 flex flex-wrap gap-6 items-center">
+                      <StickyNote rotation={-3} className="inline-block wiggle-on-hover hover:z-10 !p-3">
+                        <a href="/pranav-prashant-shewale-resume.pdf" className="font-bold underline text-lg" download>
+                           Download Resume
+                        </a>
+                      </StickyNote>
+                      <a href="#contact" className="font-mono underline decoration-wavy underline-offset-4 font-bold wiggle-on-hover">
+                        Contact Me
                       </a>
-                      <a href="#contact" className="button button--secondary">
-                        Contact
-                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="hidden lg:block absolute top-[10%] right-[12%]">
+                    <ScribbleArrow width={120} height={80} direction="right-down" />
+                    <div className="font-mono text-sm mt-2 ml-10 transform rotate-12 opacity-80">
+                      (actual systems, not toy models)
                     </div>
                   </div>
 
-                  <div className="hero-avatar">
-                    <div className="avatar-frame">
-                      <Image
-                        src="/images/cutout.png"
-                        alt="Portrait of Pranav Prashant Shewale"
-                        width={240}
-                        height={240}
-                        priority
-                      />
-                    </div>
+                  <MarginDoodle type="circuit" className="absolute top-[40%] right-[-40px] opacity-30 pointer-events-none" />
+                  
+                  <div className="hidden lg:block absolute bottom-0 right-[2%] z-10 transform scale-110 rotate-1 wiggle-on-hover hover:z-30 pointer-events-none">
+                    <Image
+                      src="/images/cutout.png"
+                      alt="Pranav Shewale"
+                      width={380}
+                      height={380}
+                      className="object-contain drop-shadow-[10px_10px_0px_rgba(26,26,26,0.1)]"
+                      priority
+                    />
                   </div>
-                </div>
+                </WireframeBox>
               </section>
 
-              <SectionDivider />
+              <div className="section-divider">
+                <span className="section-divider__line" />
+              </div>
 
-              <section id="projects" className="section section--projects" data-section>
-                <div className="section-aside section-aside--sticky" data-reveal>
-                  <p className="eyebrow eyebrow--accent">01. Projects</p>
-                  <h2 className="section-title">Selected systems with measurable outcomes</h2>
+              {/* PROJECTS */}
+              <section id="projects" className="section">
+                <div className="section-aside sticky top-24 self-start">
+                  <p className="mono-kicker">01. spec // projects</p>
+                  <h2 className="section-title mb-4">Selected Works</h2>
+                  <p className="font-sans text-[#555]">
+                    Measurable outcomes constrained by hard logic.
+                  </p>
+                  <div className="hidden md:block mt-8 opacity-60">
+                    <ScribbleArrow width={60} height={100} direction="down" />
+                  </div>
                 </div>
 
                 <div className="section-body">
-                  <div className="project-grid">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {projects.map((project, index) => (
-                      <article
-                        key={project.title}
-                        className={`project-card card ${
-                          index === 0 ? "project-card--featured" : ""
-                        } tone-${project.tone}`}
-                        data-reveal
-                        style={{ ["--reveal-delay" as string]: `${index * 100}ms` }}
-                      >
-                        <div className="project-meta">
-                          <p className="mono-kicker">{project.eyebrow}</p>
-                          <span className="project-metric">{project.metric}</span>
+                      <WireframeBox key={project.title} className="p-6 flex flex-col h-full bg-[#faf9f7]">
+                        <div className="flex justify-between items-start mb-4">
+                          <p className="font-mono text-sm uppercase opacity-70 underline decoration-dashed underline-offset-4">{project.eyebrow}</p>
+                          <div className="border border-[#1a1a1a] rounded-sm px-2 py-1 text-xs font-mono font-bold bg-[#1a1a1a] text-[#faf9f7] transform rotate-2">
+                            {project.metric}
+                          </div>
                         </div>
-
-                        <div className="card-stack">
-                          <h3>{project.title}</h3>
-                          <p>{project.problem}</p>
-                          <p className="project-outcome">{project.outcome}</p>
-                        </div>
-                        <ul className="tag-list" aria-label={`${project.title} technologies`}>
+                        
+                        <h3 className="text-xl font-bold font-mono mb-3">{project.title}</h3>
+                        <p className="text-sm font-sans mb-4 flex-grow opacity-80">{project.problem}</p>
+                        
+                        <div className="mt-auto pt-4 border-t border-dashed border-[#1a1a1a] opacity-30" />
+                        
+                        <ul className="flex flex-wrap gap-2 mt-4 mb-6">
                           {project.tech.map((item) => (
-                            <li key={item}>{item}</li>
+                            <li key={item} className="px-2 py-1 text-xs border border-[#1a1a1a] rounded font-mono">
+                              {item}
+                            </li>
                           ))}
                         </ul>
-                        <div className="link-row">
-                          {project.githubHref ? (
-                            <a href={project.githubHref} target="_blank" rel="noreferrer">
-                              GitHub
+                        
+                        <div className="flex items-center gap-4 mt-auto">
+                          {project.githubHref && (
+                            <a href={project.githubHref} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-mono text-sm underline wiggle-on-hover font-bold">
+                              [ GitHub ]
                             </a>
-                          ) : (
-                            <span className="link-row__muted">Private build</span>
                           )}
-                          {project.liveHref ? (
-                            <a href={project.liveHref} target="_blank" rel="noreferrer">
-                              Live
-                            </a>
-                          ) : null}
+                          <div className="w-12 h-4 opacity-50 ml-auto">
+                            <ScribbleArrow width={40} height={15} direction="right" />
+                          </div>
                         </div>
-                      </article>
+                      </WireframeBox>
                     ))}
                   </div>
                 </div>
               </section>
 
-              <SectionDivider />
+              <div className="section-divider">
+                <span className="section-divider__line" />
+              </div>
 
-              <section id="experience" className="section section--experience" data-section>
-                <div className="section-header-full" data-reveal>
-                  <p className="eyebrow eyebrow--accent">02. Experience</p>
+              {/* EXPERIENCE */}
+              <section id="experience" className="section">
+                <div className="col-span-full mb-6">
+                  <p className="mono-kicker">02. spec // timeline</p>
                   <h2 className="section-title">Experience</h2>
                 </div>
-                <ol className="timeline timeline--full">
-                  {experience.map((item, index) => (
-                    <li
-                      key={`${item.company}-${item.role}`}
-                      className={`timeline-item timeline-item--${item.tone}`}
-                      data-reveal
-                      style={{ ["--reveal-delay" as string]: `${index * 80}ms` }}
-                    >
+                
+                <ol className="timeline">
+                  {experience.map((item) => (
+                    <li key={`${item.company}-${item.role}`} className="timeline-item">
                       <div className="timeline-dot" />
-                      <div className="timeline-card card">
-                        <div className="timeline-row">
+                      <WireframeBox className="p-6 col-span-12 md:col-span-11 bg-white">
+                        <div className="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-4">
                           <div>
-                            <p className="mono-kicker">{item.company}</p>
-                            <h3 className="timeline-title">{item.role}</h3>
+                            <p className="font-mono text-sm opacity-70 underline decoration-dashed underline-offset-4">{item.company}</p>
+                            <h3 className="text-xl font-bold font-mono">{item.role}</h3>
                           </div>
-                          <p className="timeline-date">{item.dates}</p>
+                          <p className="font-mono text-sm border border-[#1a1a1a] px-2 py-1 rounded inline-block bg-[#faf9f7] transform rotate-[-1deg]">{item.dates}</p>
                         </div>
-                        <ul className="timeline-points">
-                          {item.bullets.map((bullet) => (
-                            <li key={bullet}>{bullet}</li>
+                        <ul className="list-none pl-0 space-y-2 mt-4 text-[0.95rem] opacity-90 mx-3 relative">
+                          {item.bullets.map((bullet, i) => (
+                            <li key={i} className="relative before:content-['>'] before:absolute before:-left-4 before:font-mono before:opacity-50">
+                              {bullet}
+                            </li>
                           ))}
                         </ul>
-                      </div>
+                      </WireframeBox>
                     </li>
                   ))}
                 </ol>
               </section>
 
-              <SectionDivider />
+              <div className="section-divider">
+                <span className="section-divider__line" />
+              </div>
 
-              <section id="skills" className="section section--skills" data-section>
-                <div className="section-aside" data-reveal>
-                  <p className="eyebrow eyebrow--accent">03. Skills</p>
-                  <h2 className="section-title">Grouped by the work they help me finish</h2>
+              {/* SKILLS */}
+              <section id="skills" className="section">
+                <div className="section-aside relative">
+                  <p className="mono-kicker">03. spec // stack</p>
+                  <h2 className="section-title">Skills</h2>
+                  <MarginDoodle type="tensor" className="absolute bottom-[-60px] left-0 opacity-40 scale-125 hidden md:block" />
                 </div>
 
                 <div className="section-body">
-                  <div className="skills-grid">
-                    
-                    {skillGroups.map((group, index) => (
-                      <section
-                        key={group.name}
-                        className="card skill-group"
-                        data-reveal
-                        aria-labelledby={`${group.name}-title`}
-                        style={{ ["--reveal-delay" as string]: `${index * 90}ms` }}
-                      >
-                        <p className="mono-kicker">group</p>
-                        <h3 id={`${group.name}-title`}>{group.name}</h3>
-                        <ul className="tag-list">
+                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    {skillGroups.map((group) => (
+                      <WireframeBox key={group.name} className="p-6 relative">
+                        <h3 className="font-mono text-lg font-bold mb-4 underline decoration-wavy underline-offset-8">
+                          {group.name}
+                        </h3>
+                        <ul className="flex flex-col gap-3">
                           {group.items.map((item) => (
-                            <li key={item}>{item}</li>
+                            <li key={item} className="flex items-center gap-3">
+                              <span className="w-4 h-4 border-[1.5px] border-[#1a1a1a] rounded-[2px] inline-flex items-center justify-center">
+                                <span className="w-2 h-2 bg-[#1a1a1a] rounded-full scale-50 opacity-80"></span>
+                              </span>
+                              <span className="font-sans text-[0.95rem]">{item}</span>
+                            </li>
                           ))}
                         </ul>
-                      </section>
+                      </WireframeBox>
                     ))}
                   </div>
                 </div>
               </section>
 
-              <SectionDivider />
+              <div className="section-divider">
+                <span className="section-divider__line" />
+              </div>
 
-              <section id="uses" className="section section--uses" data-section>
-                <div className="section-aside" data-reveal>
-                  <p className="eyebrow eyebrow--accent">04. Uses</p>
-                  <h2 className="section-title">The setup behind the work</h2>
-                  <p className="section-copy">
-                    A few tools and habits that show up repeatedly when I build, test, and ship.
-                  </p>
+              {/* CONTACT */}
+              <section id="contact" className="section">
+                <div className="col-span-full">
+                  <p className="mono-kicker">04. spec // reach out</p>
+                  <h2 className="section-title mb-2">Let's Connect</h2>
                 </div>
-
-                <div className="section-body">
-                  <div className="uses-grid">
-                    {uses.map((item, index) => (
-                      <article
-                        key={item.title}
-                        className="card uses-card"
-                        data-reveal
-                        style={{ ["--reveal-delay" as string]: `${index * 90}ms` }}
-                      >
-                        <p className="mono-kicker">{String(index + 1).padStart(2, "0")}</p>
-                        <h3>{item.title}</h3>
-                        <p>{item.body}</p>
-                        <ul className="tag-list">
-                          {item.items.map((use) => (
-                            <li key={use}>{use}</li>
-                          ))}
-                        </ul>
-                      </article>
-                    ))}
-                  </div>
+                
+                <div className="col-span-full md:col-span-7">
+                  <WireframeBox className="p-8 transform rotate-[1deg] w-full">
+                    <h3 className="font-mono font-bold text-lg mb-6 underline decoration-dashed">form.contact</h3>
+                    <form className="flex flex-col gap-6 font-mono w-full" onSubmit={(e) => e.preventDefault()}>
+                      <input aria-label="Name" type="text" placeholder="Name" className="p-3 border-2 border-[#1a1a1a] rounded-[2px_4px_1px_3px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
+                      <input aria-label="Email" type="email" placeholder="Email" className="p-3 border-2 border-[#1a1a1a] rounded-[3px_2px_4px_1px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
+                      <textarea aria-label="Message" placeholder="Message..." rows={4} className="p-3 border-2 border-[#1a1a1a] rounded-[1px_3px_2px_4px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all resize-none w-full"></textarea>
+                      <button type="button" className="button button--primary mt-4 self-start font-bold">Submit</button>
+                    </form>
+                  </WireframeBox>
                 </div>
-              </section>
-
-              <SectionDivider />
-
-              <section id="contact" className="section section--contact" data-section>
-                <div className="contact-block" data-reveal>
-                  <p className="eyebrow eyebrow--accent">05. Contact</p>
-                  <h2 className="section-title">
-                    Open to applied AI, platform, and product-facing engineering work
-                  </h2>
-                  <a className="contact-email" href="mailto:pranavprashantshewale@gmail.com">
-                    pranavprashantshewale@gmail.com
-                  </a>
-                  <div className="contact-links">
-                    <a href="https://www.linkedin.com/in/pranav-shewale/" target="_blank" rel="noreferrer">
-                      LinkedIn
+                
+                <div className="col-span-full md:col-span-5 flex flex-col justify-center items-start md:pl-10 mt-8 md:mt-0">
+                  <p className="font-mono opacity-60 text-sm mb-6">socials.json :</p>
+                  <div className="flex flex-col gap-6">
+                    <a href="https://www.linkedin.com/in/pranav-shewale/" target="_blank" rel="noreferrer" className="flex items-center gap-4 wiggle-on-hover">
+                      <span className="w-10 h-10 rounded-full border-2 border-[#1a1a1a] flex items-center justify-center font-mono font-bold opacity-80">in</span>
+                      <span className="font-mono text-lg underline decoration-dashed underline-offset-4">LinkedIn</span>
                     </a>
-                    <a href="https://github.com/prabhuuuuuuu" target="_blank" rel="noreferrer">
-                      GitHub
-                    </a>
-                    <a href="/pranav-prashant-shewale-resume.pdf" download>
-                      Resume
+                    <a href="https://github.com/prabhuuuuuuu" target="_blank" rel="noreferrer" className="flex items-center gap-4 wiggle-on-hover">
+                      <span className="w-10 h-10 rounded-full border-2 border-[#1a1a1a] flex items-center justify-center font-mono font-bold opacity-80 pr-[1px] pb-[2px]">{">"}</span>
+                      <span className="font-mono text-lg underline decoration-dashed underline-offset-4">GitHub</span>
                     </a>
                   </div>
                 </div>
               </section>
 
-              <footer className="site-footer">
-                <p>© 2026 Pranav Prashant Shewale</p>
-                <p>Built with Next.js</p>
+              <footer className="site-footer mt-12 w-full">
+                <p>{"{"} "copyright": "2026 Pranav Prashant Shewale" {"}"}</p>
+                <p>{"{"} "stack": "Next.js + RoughJS wireframe aesthetic" {"}"}</p>
               </footer>
             </div>
           </main>
         </div>
       </div>
-
-      <ScrollReveal />
     </>
   );
 }
