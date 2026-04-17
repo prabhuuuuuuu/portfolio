@@ -204,8 +204,8 @@ export default function HomePage() {
                     </h1>
                     
                     <p className="text-xl md:text-2xl text-[#555] font-sans leading-relaxed max-w-2xl">
-                      i build ai systems that run anywhere.<br/>
-                      engineering agentic systems and foundational ai optimized for the edge. i turn heavy architectures into lightweight, autonomous deployments. intelligence without the cloud tether.
+                      I build AI systems that run anywhere.<br/>
+                      Engineering agentic systems and foundational AI optimized for the edge. I turn heavy architectures into lightweight, autonomous deployments. Intelligence without the cloud tether.
                     </p>
                     
                     <div className="mt-12 flex flex-wrap gap-6 items-center">
@@ -214,6 +214,16 @@ export default function HomePage() {
                            Download Resume
                         </a>
                       </StickyNote>
+
+                      <a 
+                        href="/pranav-prashant-shewale-resume.pdf" 
+                        target="_blank" 
+                        rel="noreferrer"
+                        className="button button--primary"
+                      >
+                        View Resume In Browser
+                      </a>
+
                       <a href="#contact" className="font-mono underline decoration-wavy underline-offset-4 font-bold wiggle-on-hover">
                         Contact Me
                       </a>
@@ -248,7 +258,7 @@ export default function HomePage() {
 
               {/* PROJECTS */}
               <section id="projects" className="section">
-                <div className="section-aside sticky top-24 self-start">
+                <div className="section-aside section-aside--sticky">
                   <p className="mono-kicker">01. spec // projects</p>
                   <h2 className="section-title mb-4">Selected Works</h2>
                   <p className="font-sans text-[#555]">
