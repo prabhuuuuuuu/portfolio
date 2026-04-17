@@ -249,6 +249,18 @@ h6 {
   grid-column: 1 / span 4;
 }
 
+.section-aside--sticky {
+  position: relative;
+}
+
+@media (min-width: 901px) {
+  .section-aside--sticky {
+    position: sticky;
+    top: calc(var(--header-height) + 20px);
+    align-self: start;
+  }
+}
+
 .section-body {
   grid-column: 5 / -1;
 }
