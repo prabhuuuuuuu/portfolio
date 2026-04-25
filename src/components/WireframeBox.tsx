@@ -9,7 +9,7 @@ export function WireframeBox({
   children: ReactNode;
   className?: string;
   as?: React.ElementType;
-  [key: string]: any;
+  [key: string]: unknown;
 }) {
   return (
     <Component

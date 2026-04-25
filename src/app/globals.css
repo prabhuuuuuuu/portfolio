@@ -265,6 +265,37 @@ h6 {
   grid-column: 5 / -1;
 }
 
+.project-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.project-grid-body {
+  grid-column: 1 / -1;
+}
+
+.project-card-compact {
+  padding: 18px;
+  min-height: 260px;
+}
+
+.project-copy {
+  line-height: 1.55;
+}
+
+.project-metric {
+  flex: 0 0 auto;
+  max-width: 132px;
+  text-align: center;
+  line-height: 1.15;
+}
+
+.project-card-top {
+  min-height: 36px;
+}
+
 /* Buttons */
 .button {
   position: relative;

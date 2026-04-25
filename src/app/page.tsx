@@ -11,8 +11,8 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").re
 
 const sections = [
   { id: "hero", label: "Intro", number: "00." },
-  { id: "projects", label: "Projects", number: "01." },
-  { id: "experience", label: "Experience", number: "02." },
+  { id: "experience", label: "Experience", number: "01." },
+  { id: "projects", label: "Projects", number: "02." },
   { id: "skills", label: "Skills", number: "03." },
   { id: "contact", label: "Contact", number: "04." },
 ] as const;
@@ -22,12 +22,32 @@ const projects = [
     title: "AI Newsroom Agent",
     eyebrow: "Editorial system",
     problem:
-      "Turns research, drafting, critique, and publishing into one clear editorial workflow instead of disconnected manual steps.",
+      "Coordinates research, drafting, critique, image generation, and publishing through one LangGraph task orchestration system.",
     outcome:
-      "Cuts article research time by 70% through multi-agent orchestration, checkpointed state, and review gates before publish.",
-    tech: ["LangGraph", "Ollama", "FastAPI", "React"],
+      "Adds autonomous routing, LLM refinement loops, checkpointed state, revision controls, and real-time Streamlit monitoring.",
+    tech: ["LangGraph", "LangChain", "Streamlit", "Ollama", "Tavily"],
     githubHref: "https://github.com/prabhuuuuuuu/agentic_newsroom",
-    metric: "70% faster research",
+    metric: "5 agents",
+  },
+  {
+    title: "VLM-Prompted Drywall Segmentation",
+    eyebrow: "Inspection vision",
+    problem:
+      "Localizes drywall defects in real-world inspection workflows without needing a fully supervised dataset for every defect class.",
+    outcome:
+      "Built a prompt-driven segmentation pipeline with SAM and Grounding DINO for zero-shot defect localization.",
+    tech: ["SAM", "Grounding DINO", "Python", "Computer Vision"],
+    metric: "zero-shot defects",
+  },
+  {
+    title: "ColdDraft",
+    eyebrow: "Research discovery",
+    problem:
+      "Finds relevant researchers and turns noisy public web data into structured outreach targets for academic collaboration.",
+    outcome:
+      "Combined TF-IDF, cosine similarity, multi-threaded scraping, Llama 3 agent flows, and FastAPI outreach automation.",
+    tech: ["NLP", "Llama 3", "FastAPI", "TF-IDF", "Scraping"],
+    metric: "agent outreach",
   },
   {
     title: "Driver Fatigue Detection",
@@ -50,9 +70,49 @@ const projects = [
     tech: ["PyTorch", "ViT", "ONNX", "Raspberry Pi"],
     metric: "0.87 mAP at 30 FPS",
   },
+  {
+    title: "BeatNet",
+    eyebrow: "Audio intelligence",
+    problem:
+      "Classifies music genres by combining spatial Mel-spectrogram features with temporal sequence reasoning over audio signals.",
+    outcome:
+      "Built a CNN + BiLSTM pipeline over MFCC and spectrogram features with roughly 92% accuracy on GTZAN.",
+    tech: ["PyTorch", "Librosa", "CNN", "BiLSTM", "MFCC"],
+    githubHref: "https://github.com/prabhuuuuuuu/BeatNet",
+    metric: "~92% accuracy",
+  },
+  {
+    title: "VoyageAI",
+    eyebrow: "Full-stack product",
+    problem:
+      "Turns trip constraints into personalized itineraries with a browser-first planning surface and mapped route context.",
+    outcome:
+      "Shipped an AI-assisted React + Vite planner with API orchestration, prompt flows, and interactive itinerary generation.",
+    tech: ["React", "Vite", "JavaScript", "Maps APIs"],
+    githubHref: "https://github.com/prabhuuuuuuu/VoyageAI",
+    metric: "AI itinerary app",
+  },
 ];
 
 const experience = [
+  {
+    role: "Founding Engineer",
+    company: "Single Core Labs",
+    dates: "Apr 2026 - Present",
+    bullets: [
+      "Built and deployed LLM agents with Python, FastAPI, AWS, RAG pipelines, tool-use, and orchestration for enterprise workflows.",
+      "Focused on scalable low-latency inference paths for production agent systems.",
+    ],
+  },
+  {
+    role: "AI Engineer",
+    company: "Stealth Startup",
+    dates: "Mar 2026 - Present",
+    bullets: [
+      "Developing data pipelines and perception systems for physical AI using Python and PyTorch.",
+      "Structuring sensory data processing for robotic tactile-blindness problems.",
+    ],
+  },
   {
     role: "Computer Vision Intern",
     company: "UrbanDienst",
@@ -69,6 +129,7 @@ const experience = [
     bullets: [
       "18% F1 improvement on limited unlabeled data by applying self-supervised learning.",
       "85% multi-terrain success from a PPO locomotion policy built for biped robotics.",
+      "Co-authored TongueSight, an AI diagnostic pipeline using YOLOv8, Mask2Former, and EfficientNet-B0/ResNet feature extraction for tongue biomarkers.",
     ],
   },
   {
@@ -85,15 +146,19 @@ const experience = [
 const skillGroups = [
   {
     name: "core",
-    items: ["Python", "PyTorch", "TensorFlow", "Computer Vision", "Multi-Agent Systems"],
+    items: ["Python", "PyTorch", "TensorFlow", "Computer Vision", "Multi-Agent Systems", "RAG"],
   },
   {
     name: "tools",
-    items: ["FastAPI", "React", "Docker", "Git", "Ollama", "ONNX"],
+    items: ["FastAPI", "React", "Docker", "Git", "Ollama", "ONNX", "AWS", "WebSockets"],
   },
   {
     name: "hardware",
-    items: ["Raspberry Pi", "MemryX NPU", "Edge Deployments"],
+    items: ["Raspberry Pi", "MemryX NPU", "Edge Deployments", "TensorFlow Lite"],
+  },
+  {
+    name: "autonomy",
+    items: ["Reinforcement Learning", "PPO", "Sensor Processing", "Physical AI"],
   },
 ];
 
@@ -103,7 +168,7 @@ const personSchema = {
   name: "Pranav Prashant Shewale",
   url: siteUrl,
   jobTitle: "AI Engineer and Computer Vision Researcher",
-  description: "AI engineer focused on multi-agent systems, computer vision, and edge-ready products.",
+  description: "AI engineer focused on LLM agents, computer vision, physical AI, and edge-ready products.",
   email: "mailto:pranavprashantshewale@gmail.com",
 };
 
@@ -197,7 +262,7 @@ export default function HomePage() {
                 <WireframeBox className="col-span-full md:col-span-12 p-8 md:p-12 relative !bg-transparent !border-0 !box-shadow-none">
                   <div className="max-w-3xl">
                     <div className="inline-block px-3 py-1 mb-4 border-2 border-dashed border-[#1a1a1a] rounded font-mono text-sm uppercase">
-                      <span className="opacity-70">&lt;</span> Role: AI Engineer <span className="opacity-70">/&gt;</span>
+                      <span className="opacity-70">&lt;</span> Role: Founding Engineer + AI Engineer <span className="opacity-70">/&gt;</span>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-bold font-mono tracking-tight mb-6">
                       Pranav Prashant<br/>Shewale
@@ -205,7 +270,7 @@ export default function HomePage() {
                     
                     <p className="text-xl md:text-2xl text-[#555] font-sans leading-relaxed max-w-2xl">
                       I build AI systems that run anywhere.<br/>
-                      Engineering agentic systems and foundational AI optimized for the edge. I turn heavy architectures into lightweight, autonomous deployments. Intelligence without the cloud tether.
+                      Engineering LLM agents, physical AI perception, and foundational vision systems optimized for the edge. I turn heavy architectures into lightweight, autonomous deployments. Intelligence without the cloud tether.
                     </p>
                     
                     <div className="mt-12 flex flex-wrap gap-6 items-center">
@@ -256,67 +321,10 @@ export default function HomePage() {
                 <span className="section-divider__line" />
               </div>
 
-              {/* PROJECTS */}
-              <section id="projects" className="section">
-                <div className="section-aside section-aside--sticky">
-                  <p className="mono-kicker">01. spec // projects</p>
-                  <h2 className="section-title mb-4">Selected Works</h2>
-                  <p className="font-sans text-[#555]">
-                    Measurable outcomes constrained by hard logic.
-                  </p>
-                  <div className="hidden md:block mt-8 opacity-60">
-                    <ScribbleArrow width={60} height={100} direction="down" />
-                  </div>
-                </div>
-
-                <div className="section-body">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {projects.map((project, index) => (
-                      <WireframeBox key={project.title} className="p-6 flex flex-col h-full bg-[#faf9f7]">
-                        <div className="flex justify-between items-start mb-4">
-                          <p className="font-mono text-sm uppercase opacity-70 underline decoration-dashed underline-offset-4">{project.eyebrow}</p>
-                          <div className="border border-[#1a1a1a] rounded-sm px-2 py-1 text-xs font-mono font-bold bg-[#1a1a1a] text-[#faf9f7] transform rotate-2">
-                            {project.metric}
-                          </div>
-                        </div>
-                        
-                        <h3 className="text-xl font-bold font-mono mb-3">{project.title}</h3>
-                        <p className="text-sm font-sans mb-4 flex-grow opacity-80">{project.problem}</p>
-                        
-                        <div className="mt-auto pt-4 border-t border-dashed border-[#1a1a1a] opacity-30" />
-                        
-                        <ul className="flex flex-wrap gap-2 mt-4 mb-6">
-                          {project.tech.map((item) => (
-                            <li key={item} className="px-2 py-1 text-xs border border-[#1a1a1a] rounded font-mono">
-                              {item}
-                            </li>
-                          ))}
-                        </ul>
-                        
-                        <div className="flex items-center gap-4 mt-auto">
-                          {project.githubHref && (
-                            <a href={project.githubHref} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-mono text-sm underline wiggle-on-hover font-bold">
-                              [ GitHub ]
-                            </a>
-                          )}
-                          <div className="w-12 h-4 opacity-50 ml-auto">
-                            <ScribbleArrow width={40} height={15} direction="right" />
-                          </div>
-                        </div>
-                      </WireframeBox>
-                    ))}
-                  </div>
-                </div>
-              </section>
-
-              <div className="section-divider">
-                <span className="section-divider__line" />
-              </div>
-
               {/* EXPERIENCE */}
               <section id="experience" className="section">
                 <div className="col-span-full mb-6">
-                  <p className="mono-kicker">02. spec // timeline</p>
+                  <p className="mono-kicker">01. spec // timeline</p>
                   <h2 className="section-title">Experience</h2>
                 </div>
                 
@@ -349,6 +357,62 @@ export default function HomePage() {
                 <span className="section-divider__line" />
               </div>
 
+              {/* PROJECTS */}
+              <section id="projects" className="section">
+                <div className="project-section-heading col-span-full">
+                  <div>
+                    <p className="mono-kicker">02. spec // projects</p>
+                    <h2 className="section-title mb-3">Selected Works</h2>
+                    <p className="font-sans text-[#555]">
+                      Wider cards, tighter copy, same project coverage.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="project-grid-body col-span-full">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+                    {projects.map((project) => (
+                      <WireframeBox key={project.title} className="project-card-compact flex flex-col h-full bg-[#faf9f7]">
+                        <div className="project-card-top flex justify-between items-start gap-3 mb-3">
+                          <p className="font-mono text-xs uppercase opacity-70 underline decoration-dashed underline-offset-4">{project.eyebrow}</p>
+                          <div className="project-metric border border-[#1a1a1a] rounded-sm px-2 py-1 text-[0.68rem] font-mono font-bold bg-[#1a1a1a] text-[#faf9f7]">
+                            {project.metric}
+                          </div>
+                        </div>
+                        
+                        <h3 className="text-lg font-bold font-mono mb-2 leading-tight">{project.title}</h3>
+                        <p className="project-copy text-sm font-sans opacity-85">
+                          {project.problem} <span className="font-semibold">{project.outcome}</span>
+                        </p>
+                        
+                        <ul className="flex flex-wrap gap-1.5 mt-4 mb-4">
+                          {project.tech.map((item) => (
+                            <li key={item} className="px-2 py-0.5 text-[0.68rem] border border-[#1a1a1a] rounded font-mono">
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                        
+                        <div className="flex items-center gap-4 mt-auto border-t border-dashed border-[#1a1a1a]/30 pt-3">
+                          {project.githubHref && (
+                            <a href={project.githubHref} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-mono text-xs underline wiggle-on-hover font-bold">
+                              [ GitHub ]
+                            </a>
+                          )}
+                          <div className="w-10 h-3 opacity-50 ml-auto">
+                            <ScribbleArrow width={34} height={12} direction="right" />
+                          </div>
+                        </div>
+                      </WireframeBox>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <div className="section-divider">
+                <span className="section-divider__line" />
+              </div>
+
               {/* SKILLS */}
               <section id="skills" className="section">
                 <div className="section-aside relative">
@@ -358,7 +422,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="section-body">
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
                     {skillGroups.map((group) => (
                       <WireframeBox key={group.name} className="p-6 relative">
                         <h3 className="font-mono text-lg font-bold mb-4 underline decoration-wavy underline-offset-8">
@@ -388,7 +452,7 @@ export default function HomePage() {
               <section id="contact" className="section">
                 <div className="col-span-full">
                   <p className="mono-kicker">04. spec // reach out</p>
-                  <h2 className="section-title mb-2">Let's Connect</h2>
+                  <h2 className="section-title mb-2">Let&apos;s Connect</h2>
                 </div>
                 
                 <div className="col-span-full md:col-span-7">
@@ -419,8 +483,8 @@ export default function HomePage() {
               </section>
 
               <footer className="site-footer mt-12 w-full">
-                <p>{"{"} "copyright": "2026 Pranav Prashant Shewale" {"}"}</p>
-                <p>{"{"} "stack": "Next.js + RoughJS wireframe aesthetic" {"}"}</p>
+                <p>{'{ "copyright": "2026 Pranav Prashant Shewale" }'}</p>
+                <p>{'{ "stack": "Next.js + RoughJS wireframe aesthetic" }'}</p>
               </footer>
             </div>
           </main>
