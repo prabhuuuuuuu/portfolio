@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { WireframeBox } from "@/components/WireframeBox";
 import { ScribbleArrow } from "@/components/ScribbleArrow";
@@ -37,6 +37,7 @@ const projects = [
     outcome:
       "Built a prompt-driven segmentation pipeline with SAM and Grounding DINO for zero-shot defect localization.",
     tech: ["SAM", "Grounding DINO", "Python", "Computer Vision"],
+    githubHref: "https://github.com/prabhuuuuuuu/vlm-prompted-segmentation-drywall",
     metric: "zero-shot defects",
   },
   {
@@ -47,6 +48,7 @@ const projects = [
     outcome:
       "Combined TF-IDF, cosine similarity, multi-threaded scraping, Llama 3 agent flows, and FastAPI outreach automation.",
     tech: ["NLP", "Llama 3", "FastAPI", "TF-IDF", "Scraping"],
+    siteHref: "https://cold-draft.vercel.app/",
     metric: "agent outreach",
   },
   {
@@ -174,6 +176,8 @@ const personSchema = {
 
 export default function HomePage() {
   const [konami, setKonami] = useState(false);
+  const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [contactMessage, setContactMessage] = useState("");
   
   useEffect(() => {
     console.log("// thanks for viewing the wireframe. the real build is just as messy.");
@@ -201,6 +205,41 @@ export default function HomePage() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setContactStatus("sending");
+    setContactMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+          company: formData.get("company"),
+        }),
+      });
+
+      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(payload?.error ?? "Message could not be sent.");
+      }
+
+      form.reset();
+      setContactStatus("success");
+      setContactMessage("Message sent. I will reply soon.");
+    } catch (error) {
+      setContactStatus("error");
+      setContactMessage(error instanceof Error ? error.message : "Message could not be sent.");
+    }
+  };
 
   if (konami) {
     return (
@@ -399,6 +438,11 @@ export default function HomePage() {
                               [ GitHub ]
                             </a>
                           )}
+                          {(project as any).siteHref && (
+                            <a href={(project as any).siteHref} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-mono text-xs underline wiggle-on-hover font-bold">
+                              [ Site ]
+                            </a>
+                          )}
                           <div className="w-10 h-3 opacity-50 ml-auto">
                             <ScribbleArrow width={34} height={12} direction="right" />
                           </div>
@@ -458,11 +502,21 @@ export default function HomePage() {
                 <div className="col-span-full md:col-span-7">
                   <WireframeBox className="p-8 transform rotate-[1deg] w-full">
                     <h3 className="font-mono font-bold text-lg mb-6 underline decoration-dashed">form.contact</h3>
-                    <form className="flex flex-col gap-6 font-mono w-full" onSubmit={(e) => e.preventDefault()}>
-                      <input aria-label="Name" type="text" placeholder="Name" className="p-3 border-2 border-[#1a1a1a] rounded-[2px_4px_1px_3px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
-                      <input aria-label="Email" type="email" placeholder="Email" className="p-3 border-2 border-[#1a1a1a] rounded-[3px_2px_4px_1px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
-                      <textarea aria-label="Message" placeholder="Message..." rows={4} className="p-3 border-2 border-[#1a1a1a] rounded-[1px_3px_2px_4px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all resize-none w-full"></textarea>
-                      <button type="button" className="button button--primary mt-4 self-start font-bold">Submit</button>
+                    <form className="flex flex-col gap-6 font-mono w-full" onSubmit={handleContactSubmit}>
+                      <input aria-label="Name" name="name" type="text" placeholder="Name" required className="p-3 border-2 border-[#1a1a1a] rounded-[2px_4px_1px_3px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
+                      <input aria-label="Email" name="email" type="email" placeholder="Email" required className="p-3 border-2 border-[#1a1a1a] rounded-[3px_2px_4px_1px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
+                      <input aria-hidden="true" tabIndex={-1} name="company" type="text" autoComplete="off" className="hidden" />
+                      <textarea aria-label="Message" name="message" placeholder="Message..." rows={4} required className="p-3 border-2 border-[#1a1a1a] rounded-[1px_3px_2px_4px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all resize-none w-full"></textarea>
+                      <div className="flex flex-wrap items-center gap-4">
+                        <button type="submit" disabled={contactStatus === "sending"} className="button button--primary mt-4 self-start font-bold disabled:cursor-not-allowed disabled:opacity-60">
+                          {contactStatus === "sending" ? "Sending..." : "Submit"}
+                        </button>
+                        {contactMessage ? (
+                          <p className={`mt-4 text-sm ${contactStatus === "error" ? "text-red-700" : "text-[#1a1a1a]"}`} role="status">
+                            {contactMessage}
+                          </p>
+                        ) : null}
+                      </div>
                     </form>
                   </WireframeBox>
                 </div>
