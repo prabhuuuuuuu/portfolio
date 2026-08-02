@@ -63,35 +63,7 @@
   --scroll-progress: 0;
 }
 
-/* Adaptive dark mode: follows the user's OS/browser preference */
-@media (prefers-color-scheme: dark) {
-  :root {
-    color-scheme: dark;
 
-    --bg: #131211;
-    --surface: #1d1b19;
-    --surface-strong: #272420;
-    --panel: #1a1917;
-    --text: #ece8e0;
-    --muted: #a9a49a;
-    --soft: #7f7a71;
-    --accent: #ece8e0;
-    --accent-secondary: #d9d4ca;
-    --accent-tertiary: #ece8e0;
-
-    --ink: #ece8e0;
-    --sticky: #4a4327;
-    --sticky-border: rgba(255, 255, 255, 0.1);
-    /* warm light offset so the hand-drawn "sticker" shadows still read on dark */
-    --shadow-rgb: 210, 205, 196;
-    --bg-translucent: rgba(19, 18, 17, 0.9);
-    --dot-grid: rgba(236, 232, 224, 0.05);
-    --selection: rgba(236, 232, 224, 0.22);
-    --hairline: rgba(236, 232, 224, 0.28);
-
-    --border: rgba(236, 232, 224, 0.8);
-  }
-}
 
 * {
   box-sizing: border-box;
