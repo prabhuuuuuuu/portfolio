@@ -93,6 +93,17 @@ export const projects: Project[] = [
     githubHref: "https://github.com/prabhuuuuuuu/BeatNet",
     metric: "~92% accuracy",
   },
+  {
+    title: "FleetPulse",
+    eyebrow: "Fleet analytics agent",
+    problem:
+      "Lets operators ask free-form questions about fleet-efficiency data and get narrated, number-backed answers instead of hand-writing SQL.",
+    outcome:
+      "Built a guarded text-to-SQL agent over DuckDB with an IsolationForest anomaly detector (0.98 ROC-AUC) in one Streamlit app.",
+    tech: ["LangChain", "Groq", "DuckDB", "scikit-learn", "Streamlit"],
+    githubHref: "https://github.com/prabhuuuuuuu/fleetpulse",
+    metric: "0.98 ROC-AUC",
+  },
 ];
 
 export type Experience = {
