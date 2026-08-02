@@ -93,6 +93,17 @@ export const projects: Project[] = [
     githubHref: "https://github.com/prabhuuuuuuu/BeatNet",
     metric: "~92% accuracy",
   },
+  {
+    title: "VoyageAI",
+    eyebrow: "Full-stack product",
+    problem:
+      "Turns trip constraints into personalized itineraries with a browser-first planning surface and mapped route context.",
+    outcome:
+      "Shipped an AI-assisted React + Vite planner with API orchestration, prompt flows, and interactive itinerary generation.",
+    tech: ["React", "Vite", "JavaScript", "Maps APIs"],
+    githubHref: "https://github.com/prabhuuuuuuu/VoyageAI",
+    metric: "AI itinerary app",
+  },
 ];
 
 export type Experience = {
