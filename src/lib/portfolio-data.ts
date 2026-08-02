@@ -94,15 +94,15 @@ export const projects: Project[] = [
     metric: "~92% accuracy",
   },
   {
-    title: "VoyageAI",
-    eyebrow: "Full-stack product",
+    title: "FleetPulse",
+    eyebrow: "Fleet analytics agent",
     problem:
-      "Turns trip constraints into personalized itineraries with a browser-first planning surface and mapped route context.",
+      "Lets operators ask free-form questions about fleet-efficiency data and get narrated, number-backed answers instead of hand-writing SQL.",
     outcome:
-      "Shipped an AI-assisted React + Vite planner with API orchestration, prompt flows, and interactive itinerary generation.",
-    tech: ["React", "Vite", "JavaScript", "Maps APIs"],
-    githubHref: "https://github.com/prabhuuuuuuu/VoyageAI",
-    metric: "AI itinerary app",
+      "Built a guarded text-to-SQL agent over DuckDB with an IsolationForest anomaly detector (0.98 ROC-AUC) in one Streamlit app.",
+    tech: ["LangChain", "Groq", "DuckDB", "scikit-learn", "Streamlit"],
+    githubHref: "https://github.com/prabhuuuuuuu/fleetpulse",
+    metric: "0.98 ROC-AUC",
   },
 ];
 
