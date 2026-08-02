@@ -1,179 +1,17 @@
 "use client";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import Image from "next/image";
 import { WireframeBox } from "@/components/WireframeBox";
 import { ScribbleArrow } from "@/components/ScribbleArrow";
 import { StickyNote } from "@/components/StickyNote";
 import { AnimatedCat } from "@/components/AnimatedCat";
 import { MarginDoodle } from "@/components/MarginDoodle";
-
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
-
-const sections = [
-  { id: "hero", label: "Intro", number: "00." },
-  { id: "experience", label: "Experience", number: "01." },
-  { id: "projects", label: "Projects", number: "02." },
-  { id: "skills", label: "Skills", number: "03." },
-  { id: "contact", label: "Contact", number: "04." },
-] as const;
-
-const projects = [
-  {
-    title: "AI Newsroom Agent",
-    eyebrow: "Editorial system",
-    problem:
-      "Coordinates research, drafting, critique, image generation, and publishing through one LangGraph task orchestration system.",
-    outcome:
-      "Adds autonomous routing, LLM refinement loops, checkpointed state, revision controls, and real-time Streamlit monitoring.",
-    tech: ["LangGraph", "LangChain", "Streamlit", "Ollama", "Tavily"],
-    githubHref: "https://github.com/prabhuuuuuuu/agentic_newsroom",
-    metric: "5 agents",
-  },
-  {
-    title: "VLM-Prompted Drywall Segmentation",
-    eyebrow: "Inspection vision",
-    problem:
-      "Localizes drywall defects in real-world inspection workflows without needing a fully supervised dataset for every defect class.",
-    outcome:
-      "Built a prompt-driven segmentation pipeline with SAM and Grounding DINO for zero-shot defect localization.",
-    tech: ["SAM", "Grounding DINO", "Python", "Computer Vision"],
-    metric: "zero-shot defects",
-  },
-  {
-    title: "ColdDraft",
-    eyebrow: "Research discovery",
-    problem:
-      "Finds relevant researchers and turns noisy public web data into structured outreach targets for academic collaboration.",
-    outcome:
-      "Combined TF-IDF, cosine similarity, multi-threaded scraping, Llama 3 agent flows, and FastAPI outreach automation.",
-    tech: ["NLP", "Llama 3", "FastAPI", "TF-IDF", "Scraping"],
-    metric: "agent outreach",
-  },
-  {
-    title: "Driver Fatigue Detection",
-    eyebrow: "Edge safety",
-    problem:
-      "Detects eye closure, yawning, and head-pose drift early enough for edge devices to support real-time driver safety.",
-    outcome:
-      "Reached 95% accuracy with sub-50 ms latency and stable 30 FPS inference on Raspberry Pi hardware.",
-    tech: ["TensorFlow", "OpenCV", "MobileNetV2", "Raspberry Pi"],
-    githubHref: "https://github.com/prabhuuuuuuu/driver_fatigue",
-    metric: "95% accuracy",
-  },
-  {
-    title: "Waste Sorting Vision Pipeline",
-    eyebrow: "Real-time classification",
-    problem:
-      "Automates material classification on constrained hardware so sorting decisions can happen at the edge without cloud.",
-    outcome:
-      "Delivered 0.87 mAP at 30 FPS by deploying a ViT + DETR pipeline through ONNX on Raspberry Pi.",
-    tech: ["PyTorch", "ViT", "ONNX", "Raspberry Pi"],
-    metric: "0.87 mAP at 30 FPS",
-  },
-  {
-    title: "BeatNet",
-    eyebrow: "Audio intelligence",
-    problem:
-      "Classifies music genres by combining spatial Mel-spectrogram features with temporal sequence reasoning over audio signals.",
-    outcome:
-      "Built a CNN + BiLSTM pipeline over MFCC and spectrogram features with roughly 92% accuracy on GTZAN.",
-    tech: ["PyTorch", "Librosa", "CNN", "BiLSTM", "MFCC"],
-    githubHref: "https://github.com/prabhuuuuuuu/BeatNet",
-    metric: "~92% accuracy",
-  },
-  {
-    title: "VoyageAI",
-    eyebrow: "Full-stack product",
-    problem:
-      "Turns trip constraints into personalized itineraries with a browser-first planning surface and mapped route context.",
-    outcome:
-      "Shipped an AI-assisted React + Vite planner with API orchestration, prompt flows, and interactive itinerary generation.",
-    tech: ["React", "Vite", "JavaScript", "Maps APIs"],
-    githubHref: "https://github.com/prabhuuuuuuu/VoyageAI",
-    metric: "AI itinerary app",
-  },
-];
-
-const experience = [
-  {
-    role: "Founding Engineer",
-    company: "Single Core Labs",
-    dates: "Apr 2026 - Present",
-    bullets: [
-      "Built and deployed LLM agents with Python, FastAPI, AWS, RAG pipelines, tool-use, and orchestration for enterprise workflows.",
-      "Focused on scalable low-latency inference paths for production agent systems.",
-    ],
-  },
-  {
-    role: "AI Engineer",
-    company: "Stealth Startup",
-    dates: "Mar 2026 - Present",
-    bullets: [
-      "Developing data pipelines and perception systems for physical AI using Python and PyTorch.",
-      "Structuring sensory data processing for robotic tactile-blindness problems.",
-    ],
-  },
-  {
-    role: "Computer Vision Intern",
-    company: "UrbanDienst",
-    dates: "Nov 2025 - Feb 2026",
-    bullets: [
-      "45 FPS at 22 ms latency on MemryX edge chips after quantizing YOLOv8 pipelines.",
-      "Maintained sub 50 MB memory footprint while keeping real-time inference practical.",
-    ],
-  },
-  {
-    role: "AI + Robotics Intern",
-    company: "IIT Mandi",
-    dates: "Apr 2025 - Oct 2025",
-    bullets: [
-      "18% F1 improvement on limited unlabeled data by applying self-supervised learning.",
-      "85% multi-terrain success from a PPO locomotion policy built for biped robotics.",
-      "Co-authored TongueSight, an AI diagnostic pipeline using YOLOv8, Mask2Former, and EfficientNet-B0/ResNet feature extraction for tongue biomarkers.",
-    ],
-  },
-  {
-    role: "AI Intern",
-    company: "VIT Chennai",
-    dates: "Sep 2024 - Present",
-    bullets: [
-      "30 FPS waste sorting inference at 0.87 mAP using a ViT + DETR pipeline on Raspberry Pi.",
-      "25 FPS behavioral tracking from a YOLOv8 + StrongSORT perception system.",
-    ],
-  },
-];
-
-const skillGroups = [
-  {
-    name: "core",
-    items: ["Python", "PyTorch", "TensorFlow", "Computer Vision", "Multi-Agent Systems", "RAG"],
-  },
-  {
-    name: "tools",
-    items: ["FastAPI", "React", "Docker", "Git", "Ollama", "ONNX", "AWS", "WebSockets"],
-  },
-  {
-    name: "hardware",
-    items: ["Raspberry Pi", "MemryX NPU", "Edge Deployments", "TensorFlow Lite"],
-  },
-  {
-    name: "autonomy",
-    items: ["Reinforcement Learning", "PPO", "Sensor Processing", "Physical AI"],
-  },
-];
-
-const personSchema = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Pranav Prashant Shewale",
-  url: siteUrl,
-  jobTitle: "AI Engineer and Computer Vision Researcher",
-  description: "AI engineer focused on LLM agents, computer vision, physical AI, and edge-ready products.",
-  email: "mailto:pranavprashantshewale@gmail.com",
-};
+import { sections, projects, experience, skillGroups, personSchema } from "@/lib/portfolio-data";
 
 export default function HomePage() {
   const [konami, setKonami] = useState(false);
+  const [contactStatus, setContactStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [contactMessage, setContactMessage] = useState("");
   
   useEffect(() => {
     console.log("// thanks for viewing the wireframe. the real build is just as messy.");
@@ -201,6 +39,41 @@ export default function HomePage() {
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
+
+  const handleContactSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    setContactStatus("sending");
+    setContactMessage("");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.get("name"),
+          email: formData.get("email"),
+          message: formData.get("message"),
+          company: formData.get("company"),
+        }),
+      });
+
+      const payload = (await response.json().catch(() => null)) as { error?: string } | null;
+
+      if (!response.ok) {
+        throw new Error(payload?.error ?? "Message could not be sent.");
+      }
+
+      form.reset();
+      setContactStatus("success");
+      setContactMessage("Message sent. I will reply soon.");
+    } catch (error) {
+      setContactStatus("error");
+      setContactMessage(error instanceof Error ? error.message : "Message could not be sent.");
+    }
+  };
 
   if (konami) {
     return (
@@ -261,14 +134,14 @@ export default function HomePage() {
               <section id="hero" className="section">
                 <WireframeBox className="col-span-full md:col-span-12 p-8 md:p-12 relative !bg-transparent !border-0 !box-shadow-none">
                   <div className="max-w-3xl">
-                    <div className="inline-block px-3 py-1 mb-4 border-2 border-dashed border-[#1a1a1a] rounded font-mono text-sm uppercase">
-                      <span className="opacity-70">&lt;</span> Role: Founding Engineer + AI Engineer <span className="opacity-70">/&gt;</span>
+                    <div className="inline-block px-3 py-1 mb-4 border-2 border-dashed border-[color:var(--ink)] rounded font-mono text-sm uppercase">
+                      <span className="opacity-70">&lt;</span> Role: Co-Founder + AI Engineer <span className="opacity-70">/&gt;</span>
                     </div>
                     <h1 className="text-5xl md:text-7xl font-bold font-mono tracking-tight mb-6">
                       Pranav Prashant<br/>Shewale
                     </h1>
                     
-                    <p className="text-xl md:text-2xl text-[#555] font-sans leading-relaxed max-w-2xl">
+                    <p className="text-xl md:text-2xl text-[var(--muted)] font-sans leading-relaxed max-w-2xl">
                       I build AI systems that run anywhere.<br/>
                       Engineering LLM agents, physical AI perception, and foundational vision systems optimized for the edge. I turn heavy architectures into lightweight, autonomous deployments. Intelligence without the cloud tether.
                     </p>
@@ -310,7 +183,7 @@ export default function HomePage() {
                       alt="Pranav Shewale"
                       width={380}
                       height={380}
-                      className="object-contain drop-shadow-[10px_10px_0px_rgba(26,26,26,0.1)]"
+                      className="object-contain drop-shadow-[10px_10px_0px_rgba(var(--shadow-rgb),0.1)]"
                       priority
                     />
                   </div>
@@ -332,13 +205,13 @@ export default function HomePage() {
                   {experience.map((item) => (
                     <li key={`${item.company}-${item.role}`} className="timeline-item">
                       <div className="timeline-dot" />
-                      <WireframeBox className="p-6 col-span-12 md:col-span-11 bg-white">
+                      <WireframeBox className="p-6 col-span-12 md:col-span-11">
                         <div className="flex flex-col md:flex-row justify-between md:items-center gap-2 mb-4">
                           <div>
                             <p className="font-mono text-sm opacity-70 underline decoration-dashed underline-offset-4">{item.company}</p>
                             <h3 className="text-xl font-bold font-mono">{item.role}</h3>
                           </div>
-                          <p className="font-mono text-sm border border-[#1a1a1a] px-2 py-1 rounded inline-block bg-[#faf9f7] transform rotate-[-1deg]">{item.dates}</p>
+                          <p className="font-mono text-sm border border-[color:var(--ink)] px-2 py-1 rounded inline-block bg-[var(--bg)] transform rotate-[-1deg]">{item.dates}</p>
                         </div>
                         <ul className="list-none pl-0 space-y-2 mt-4 text-[0.95rem] opacity-90 mx-3 relative">
                           {item.bullets.map((bullet, i) => (
@@ -347,6 +220,16 @@ export default function HomePage() {
                             </li>
                           ))}
                         </ul>
+                        {item.paperHref && (
+                          <a
+                            href={item.paperHref}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-block mt-4 ml-3 font-mono text-xs underline decoration-dashed underline-offset-4 wiggle-on-hover font-bold"
+                          >
+                            [ Paper → ICVGIP 2025 ]
+                          </a>
+                        )}
                       </WireframeBox>
                     </li>
                   ))}
@@ -363,7 +246,7 @@ export default function HomePage() {
                   <div>
                     <p className="mono-kicker">02. spec // projects</p>
                     <h2 className="section-title mb-3">Selected Works</h2>
-                    <p className="font-sans text-[#555]">
+                    <p className="font-sans text-[var(--muted)]">
                       Wider cards, tighter copy, same project coverage.
                     </p>
                   </div>
@@ -372,10 +255,10 @@ export default function HomePage() {
                 <div className="project-grid-body col-span-full">
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {projects.map((project) => (
-                      <WireframeBox key={project.title} className="project-card-compact flex flex-col h-full bg-[#faf9f7]">
+                      <WireframeBox key={project.title} className="project-card-compact flex flex-col h-full bg-[var(--bg)]">
                         <div className="project-card-top flex justify-between items-start gap-3 mb-3">
                           <p className="font-mono text-xs uppercase opacity-70 underline decoration-dashed underline-offset-4">{project.eyebrow}</p>
-                          <div className="project-metric border border-[#1a1a1a] rounded-sm px-2 py-1 text-[0.68rem] font-mono font-bold bg-[#1a1a1a] text-[#faf9f7]">
+                          <div className="project-metric border border-[color:var(--ink)] rounded-sm px-2 py-1 text-[0.68rem] font-mono font-bold bg-[var(--ink)] text-[var(--bg)]">
                             {project.metric}
                           </div>
                         </div>
@@ -387,16 +270,21 @@ export default function HomePage() {
                         
                         <ul className="flex flex-wrap gap-1.5 mt-4 mb-4">
                           {project.tech.map((item) => (
-                            <li key={item} className="px-2 py-0.5 text-[0.68rem] border border-[#1a1a1a] rounded font-mono">
+                            <li key={item} className="px-2 py-0.5 text-[0.68rem] border border-[color:var(--ink)] rounded font-mono">
                               {item}
                             </li>
                           ))}
                         </ul>
                         
-                        <div className="flex items-center gap-4 mt-auto border-t border-dashed border-[#1a1a1a]/30 pt-3">
+                        <div className="flex items-center gap-4 mt-auto border-t border-dashed border-[color:var(--hairline)] pt-3">
                           {project.githubHref && (
                             <a href={project.githubHref} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-mono text-xs underline wiggle-on-hover font-bold">
                               [ GitHub ]
+                            </a>
+                          )}
+                          {project.siteHref && (
+                            <a href={project.siteHref} target="_blank" rel="noreferrer" className="flex items-center gap-2 font-mono text-xs underline wiggle-on-hover font-bold">
+                              [ Site ]
                             </a>
                           )}
                           <div className="w-10 h-3 opacity-50 ml-auto">
@@ -431,8 +319,8 @@ export default function HomePage() {
                         <ul className="flex flex-col gap-3">
                           {group.items.map((item) => (
                             <li key={item} className="flex items-center gap-3">
-                              <span className="w-4 h-4 border-[1.5px] border-[#1a1a1a] rounded-[2px] inline-flex items-center justify-center">
-                                <span className="w-2 h-2 bg-[#1a1a1a] rounded-full scale-50 opacity-80"></span>
+                              <span className="w-4 h-4 border-[1.5px] border-[color:var(--ink)] rounded-[2px] inline-flex items-center justify-center">
+                                <span className="w-2 h-2 bg-[var(--ink)] rounded-full scale-50 opacity-80"></span>
                               </span>
                               <span className="font-sans text-[0.95rem]">{item}</span>
                             </li>
@@ -458,11 +346,21 @@ export default function HomePage() {
                 <div className="col-span-full md:col-span-7">
                   <WireframeBox className="p-8 transform rotate-[1deg] w-full">
                     <h3 className="font-mono font-bold text-lg mb-6 underline decoration-dashed">form.contact</h3>
-                    <form className="flex flex-col gap-6 font-mono w-full" onSubmit={(e) => e.preventDefault()}>
-                      <input aria-label="Name" type="text" placeholder="Name" className="p-3 border-2 border-[#1a1a1a] rounded-[2px_4px_1px_3px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
-                      <input aria-label="Email" type="email" placeholder="Email" className="p-3 border-2 border-[#1a1a1a] rounded-[3px_2px_4px_1px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all w-full" />
-                      <textarea aria-label="Message" placeholder="Message..." rows={4} className="p-3 border-2 border-[#1a1a1a] rounded-[1px_3px_2px_4px] bg-transparent outline-none focus:bg-white focus:shadow-[2px_2px_0_rgba(26,26,26,0.1)] transition-all resize-none w-full"></textarea>
-                      <button type="button" className="button button--primary mt-4 self-start font-bold">Submit</button>
+                    <form className="flex flex-col gap-6 font-mono w-full" onSubmit={handleContactSubmit}>
+                      <input aria-label="Name" name="name" type="text" placeholder="Name" required className="p-3 border-2 border-[color:var(--ink)] rounded-[2px_4px_1px_3px] bg-transparent outline-none focus:bg-[var(--surface)] focus:shadow-[2px_2px_0_rgba(var(--shadow-rgb),0.1)] transition-all w-full" />
+                      <input aria-label="Email" name="email" type="email" placeholder="Email" required className="p-3 border-2 border-[color:var(--ink)] rounded-[3px_2px_4px_1px] bg-transparent outline-none focus:bg-[var(--surface)] focus:shadow-[2px_2px_0_rgba(var(--shadow-rgb),0.1)] transition-all w-full" />
+                      <input aria-hidden="true" tabIndex={-1} name="company" type="text" autoComplete="off" className="hidden" />
+                      <textarea aria-label="Message" name="message" placeholder="Message..." rows={4} required className="p-3 border-2 border-[color:var(--ink)] rounded-[1px_3px_2px_4px] bg-transparent outline-none focus:bg-[var(--surface)] focus:shadow-[2px_2px_0_rgba(var(--shadow-rgb),0.1)] transition-all resize-none w-full"></textarea>
+                      <div className="flex flex-wrap items-center gap-4">
+                        <button type="submit" disabled={contactStatus === "sending"} className="button button--primary mt-4 self-start font-bold disabled:cursor-not-allowed disabled:opacity-60">
+                          {contactStatus === "sending" ? "Sending..." : "Submit"}
+                        </button>
+                        {contactMessage ? (
+                          <p className={`mt-4 text-sm ${contactStatus === "error" ? "text-red-700" : "text-[var(--ink)]"}`} role="status">
+                            {contactMessage}
+                          </p>
+                        ) : null}
+                      </div>
                     </form>
                   </WireframeBox>
                 </div>
@@ -471,12 +369,16 @@ export default function HomePage() {
                   <p className="font-mono opacity-60 text-sm mb-6">socials.json :</p>
                   <div className="flex flex-col gap-6">
                     <a href="https://www.linkedin.com/in/pranav-shewale/" target="_blank" rel="noreferrer" className="flex items-center gap-4 wiggle-on-hover">
-                      <span className="w-10 h-10 rounded-full border-2 border-[#1a1a1a] flex items-center justify-center font-mono font-bold opacity-80">in</span>
+                      <span className="w-10 h-10 rounded-full border-2 border-[color:var(--ink)] flex items-center justify-center font-mono font-bold opacity-80">in</span>
                       <span className="font-mono text-lg underline decoration-dashed underline-offset-4">LinkedIn</span>
                     </a>
                     <a href="https://github.com/prabhuuuuuuu" target="_blank" rel="noreferrer" className="flex items-center gap-4 wiggle-on-hover">
-                      <span className="w-10 h-10 rounded-full border-2 border-[#1a1a1a] flex items-center justify-center font-mono font-bold opacity-80 pr-[1px] pb-[2px]">{">"}</span>
+                      <span className="w-10 h-10 rounded-full border-2 border-[color:var(--ink)] flex items-center justify-center font-mono font-bold opacity-80 pr-[1px] pb-[2px]">{">"}</span>
                       <span className="font-mono text-lg underline decoration-dashed underline-offset-4">GitHub</span>
+                    </a>
+                    <a href="mailto:pranavprashantshewale@gmail.com" className="flex items-center gap-4 wiggle-on-hover">
+                      <span className="w-10 h-10 rounded-full border-2 border-[color:var(--ink)] flex items-center justify-center font-mono font-bold opacity-80">@</span>
+                      <span className="font-mono text-lg underline decoration-dashed underline-offset-4">pranavprashantshewale@gmail.com</span>
                     </a>
                   </div>
                 </div>

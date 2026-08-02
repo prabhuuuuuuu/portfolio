@@ -18,19 +18,19 @@ export function MarginDoodle({
 
     if (type === "circuit") {
       // Small logic gate style doodle
-      svgRef.current.appendChild(rc.circle(10, 10, 8, { stroke: "#1a1a1a", strokeWidth: 1 }));
-      svgRef.current.appendChild(rc.line(18, 10, 30, 10, { stroke: "#1a1a1a" }));
-      svgRef.current.appendChild(rc.rectangle(30, 5, 20, 10, { stroke: "#1a1a1a" }));
+      svgRef.current.appendChild(rc.circle(10, 10, 8, { stroke: "currentColor", strokeWidth: 1 }));
+      svgRef.current.appendChild(rc.line(18, 10, 30, 10, { stroke: "currentColor" }));
+      svgRef.current.appendChild(rc.rectangle(30, 5, 20, 10, { stroke: "currentColor" }));
     } else if (type === "tensor") {
       // 3x3 grid style doodle
       for(let i=0; i<3; i++) {
         for(let j=0; j<3; j++) {
-          svgRef.current.appendChild(rc.rectangle(i*12, j*12, 8, 8, { stroke: "#1a1a1a", strokeWidth: 1 }));
+          svgRef.current.appendChild(rc.rectangle(i*12, j*12, 8, 8, { stroke: "currentColor", strokeWidth: 1 }));
         }
       }
     } else {
        // Abstract squiggles
-       svgRef.current.appendChild(rc.curve([[5,5], [15,20], [25,5], [35,20]], { stroke: "#1a1a1a", roughness: 2 }));
+       svgRef.current.appendChild(rc.curve([[5,5], [15,20], [25,5], [35,20]], { stroke: "currentColor", roughness: 2 }));
     }
   }, [type]);
 

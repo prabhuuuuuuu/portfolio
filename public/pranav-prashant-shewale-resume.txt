@@ -22,6 +22,11 @@ Percentage: 97.40%
 2020 - 2022
 
 WORK EXPERIENCE
+Bonzai - AI Engineer / SDE Intern, Remote
+May 2026 - July 2026
+- Built an automated Python data pipeline to extract and structure Shopify e-commerce data into an AWS database, providing clean datasets for AI model training.
+- Designed AWS backend infrastructure for AI workloads with scalable inference APIs and automated CI/CD pipelines for reliable deployments.
+
 Single Core Labs - Founding Engineer, Remote (Pune, India)
 Apr 2026 - Present
 - Built and deployed LLM-based agents using Python, FastAPI, and cloud infrastructure (AWS).
@@ -45,6 +50,7 @@ Nov 2025 - Feb 2026
 PUBLICATIONS
 TongueSight: AI-Powered Tongue Analysis for Digitizing Traditional Medicine Diagnostics
 Published at the 14th International Conference on Graphics, Vision and Image Processing (ICVGIP 2025)
+Paper: https://dl.acm.org/doi/10.1145/3774521.3774545
 - Co-authored a hybrid deep learning pipeline using YOLOv8 + Mask2Former/SegNet/EfficientNet-B0.
 - Achieved 92.0% accuracy with a modular design for mobile and edge deployment.
 

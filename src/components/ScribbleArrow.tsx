@@ -36,7 +36,7 @@ export function ScribbleArrow({
 
     if (path) {
       const node = rc.path(path, {
-        stroke: "#1a1a1a",
+        stroke: "currentColor",
         strokeWidth: 2,
         roughness: 1.5,
         bowing: 1,
