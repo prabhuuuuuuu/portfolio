@@ -220,6 +220,16 @@ export default function HomePage() {
                             </li>
                           ))}
                         </ul>
+                        {item.paperHref && (
+                          <a
+                            href={item.paperHref}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-block mt-4 ml-3 font-mono text-xs underline decoration-dashed underline-offset-4 wiggle-on-hover font-bold"
+                          >
+                            [ Paper → ICVGIP 2025 ]
+                          </a>
+                        )}
                       </WireframeBox>
                     </li>
                   ))}

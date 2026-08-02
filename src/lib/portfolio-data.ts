@@ -111,13 +111,14 @@ export type Experience = {
   company: string;
   dates: string;
   bullets: string[];
+  paperHref?: string;
 };
 
 export const experience: Experience[] = [
   {
     role: "AI Engineer / SDE Intern",
     company: "Bonzai",
-    dates: "May 2026 - Present",
+    dates: "May 2026 - July 2026",
     bullets: [
       "Built an automated Python data pipeline to extract and structure Shopify e-commerce data into an AWS database, providing clean datasets for AI model training.",
       "Designed AWS backend infrastructure for AI workloads with scalable inference APIs and automated CI/CD pipelines for reliable deployments.",
@@ -148,8 +149,9 @@ export const experience: Experience[] = [
     bullets: [
       "18% F1 improvement on limited unlabeled data by applying self-supervised learning.",
       "85% multi-terrain success from a PPO locomotion policy built for biped robotics.",
-      "Co-authored TongueSight, an AI diagnostic pipeline using YOLOv8, Mask2Former, and EfficientNet-B0/ResNet feature extraction for tongue biomarkers.",
+      "Co-authored TongueSight, an AI diagnostic pipeline using YOLOv8, Mask2Former, and EfficientNet-B0/ResNet feature extraction for tongue biomarkers; achieved 92.0% accuracy, outperforming TongueNet and Cv-Swin Transformer.",
     ],
+    paperHref: "https://dl.acm.org/doi/10.1145/3774521.3774545",
   },
   {
     role: "AI Intern",
