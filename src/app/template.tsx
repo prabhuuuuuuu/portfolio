@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { pageEnter } from "@/lib/motion";
 
@@ -10,6 +11,11 @@ import { pageEnter } from "@/lib/motion";
  * supported by the router's streaming model, so we only animate in).
  */
 export default function Template({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
+  // Admin screens are tools: skip the editorial page-enter animation.
+  if (pathname.startsWith("/admin")) return <>{children}</>;
+
   return (
     <motion.div initial="hidden" animate="show" variants={pageEnter}>
       {children}

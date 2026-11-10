@@ -1,4 +1,10 @@
-export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
+const vercelHost =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL?.trim() || process.env.VERCEL_URL?.trim();
+
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (vercelHost ? `https://${vercelHost}` : "http://localhost:3000")
+).replace(/\/$/, "");
 
 export const contactEmail = "pranavprashantshewale@gmail.com";
 
@@ -75,7 +81,8 @@ export const sections: Section[] = [
   { id: "hero", label: "Intro", number: "00.", href: "/" },
   { id: "experience", label: "Experience", number: "01.", href: "/experience" },
   { id: "projects", label: "Projects", number: "02.", href: "/projects" },
-  { id: "contact", label: "Contact", number: "03.", href: "/contact" },
+  { id: "blog", label: "Blog", number: "03.", href: "/blog" },
+  { id: "contact", label: "Contact", number: "04.", href: "/contact" },
 ];
 
 export type Project = {
@@ -203,6 +210,22 @@ export type Experience = {
 /** Reverse-chronological. `featured` gives the entry the accent panel treatment. */
 export const experience: Experience[] = [
   {
+    role: "Physical AI Research Fellow",
+    company: "mjak.in",
+    dates: "Nov 2026 - Present",
+    start: "2026-11",
+    kind: "Research // physical AI",
+    metric: "Disclosure soon",
+    telemetryKey: "MJAK_RND",
+    bullets: [
+      "Research and deliverables will be disclosed soon.",
+      "Ongoing open-source contributions and research papers in physical AI.",
+    ],
+    tags: ["Open source", "Research papers", "Physical AI"],
+    siteHref: "https://mjak.in",
+    siteLabel: "mjak.in",
+  },
+  {
     role: "Co-Founder & CTO",
     company: "Sentrix Robotics Pvt. Ltd.",
     dates: "Mar 2026 - Present",
@@ -270,8 +293,9 @@ export const experience: Experience[] = [
   {
     role: "AI Intern",
     company: "VIT Chennai",
-    dates: "Sep 2024 - Present",
+    dates: "Sep 2024 - Dec 2024",
     start: "2024-09",
+    end: "2024-12",
     kind: "Academic // perception",
     metric: "0.87 mAP @ 30 FPS",
     telemetryKey: "VIT_EDGE",

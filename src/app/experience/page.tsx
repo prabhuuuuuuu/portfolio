@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/portfolio-data";
 
 export const metadata: Metadata = pageMetadata(
   "Experience",
-  "Timeline of Pranav Prashant Shewale's work: Sentrix Robotics, Bonzai, UrbanDienst, IIT Mandi, and VIT Chennai.",
+  "Timeline of Pranav Prashant Shewale's work: mjak.in, Sentrix Robotics, Bonzai, UrbanDienst, IIT Mandi, and VIT Chennai.",
   "/experience",
 );
 

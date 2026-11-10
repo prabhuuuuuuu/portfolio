@@ -6,6 +6,7 @@ import { SiteShell } from "@/components/SiteShell";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { CursorProvider } from "@/components/cursor/CustomCursor";
 import { siteDescription, siteName, siteTitle, siteUrl } from "@/lib/portfolio-data";
+import "katex/dist/katex.min.css";
 import "./globals.css";
 
 export const metadata: Metadata = {

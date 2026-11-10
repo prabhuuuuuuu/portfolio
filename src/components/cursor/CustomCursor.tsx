@@ -10,6 +10,7 @@ import {
   type ReactNode,
 } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { useMediaQuery } from "@/lib/use-media-query";
 
 export type CursorState = "default" | "view" | "crosshair" | "link" | "hidden";
@@ -47,7 +48,9 @@ const RING: Record<CursorState, { size: number; opacity: number; border: number 
 
 function Cursor() {
   const { state, setState } = useCursor();
-  const enabled = useMediaQuery("(pointer: fine)");
+  const pathname = usePathname();
+  // The admin editor needs the native cursor (text selection, drag, inputs).
+  const enabled = useMediaQuery("(pointer: fine)") && !pathname.startsWith("/admin");
 
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);

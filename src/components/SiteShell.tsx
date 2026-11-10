@@ -51,6 +51,11 @@ export function SiteShell({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  // The admin is a private tool, not part of the public site chrome.
+  if (pathname.startsWith("/admin")) {
+    return <>{children}</>;
+  }
+
   if (konami) {
     return (
       <div className="flex h-screen items-center justify-center bg-white text-black font-sans">

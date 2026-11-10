@@ -19,6 +19,9 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     lenisRef.current?.lenis?.scrollTo(0, { immediate: true, force: true });
   }, [pathname]);
 
+  // Admin forms and long textareas should scroll natively.
+  if (pathname.startsWith("/admin")) return <>{children}</>;
+
   return (
     <ReactLenis
       root
