@@ -1,33 +1,41 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
+import { SiteShell } from "@/components/SiteShell";
+import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { CursorProvider } from "@/components/cursor/CustomCursor";
+import { siteDescription, siteName, siteTitle, siteUrl } from "@/lib/portfolio-data";
+import "katex/dist/katex.min.css";
 import "./globals.css";
-import "./background.css";
-
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000").replace(/\/$/, "");
-const title = "Pranav Prashant Shewale | AI Engineer & CV Researcher";
-const description =
-  "Developer-first portfolio for Pranav Prashant Shewale featuring multi-agent systems, computer vision research, edge AI deployment, and production-grade engineering work.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title,
-  description,
+  title: {
+    default: siteTitle,
+    template: `%s — ${siteName}`,
+  },
+  description: siteDescription,
   applicationName: "Pranav Shewale Portfolio",
   authors: [{ name: "Pranav Prashant Shewale" }],
   keywords: [
     "Pranav Prashant Shewale",
-    "AI engineer",
+    "physical AI",
+    "robotics",
+    "tactile sensing",
+    "sim-to-real reinforcement learning",
+    "robot perception",
     "computer vision",
-    "multi-agent systems",
-    "edge AI",
+    "VIT Chennai",
+    "Sentrix Robotics",
     "portfolio",
   ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title,
-    description,
+    title: siteTitle,
+    description: siteDescription,
     type: "website",
     locale: "en_US",
     siteName: "Pranav Shewale Portfolio",
@@ -42,8 +50,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
+    title: siteTitle,
+    description: siteDescription,
     images: ["/twitter-image"],
   },
   robots: {
@@ -67,8 +75,14 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body>{children}</body>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+      <body>
+        <CursorProvider>
+          <SmoothScroll>
+            <SiteShell>{children}</SiteShell>
+          </SmoothScroll>
+        </CursorProvider>
+      </body>
     </html>
   );
 }

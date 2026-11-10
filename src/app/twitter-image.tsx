@@ -7,6 +7,8 @@ export const size = {
 
 export const contentType = "image/png";
 
+const ACCENT = "#00fc35";
+
 export default function TwitterImage() {
   return new ImageResponse(
     (
@@ -16,8 +18,11 @@ export default function TwitterImage() {
           width: "100%",
           height: "100%",
           padding: "48px",
-          background: "#0f0f0f",
-          color: "#f5f5f5",
+          background: "#050505",
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
+          color: "#f2f2f0",
           fontFamily: "Inter, system-ui, sans-serif",
         }}
       >
@@ -27,50 +32,56 @@ export default function TwitterImage() {
             flexDirection: "column",
             justifyContent: "space-between",
             width: "100%",
-            border: "1px solid #333333",
-            borderRadius: "28px",
+            border: "1px solid rgba(255,255,255,0.18)",
             padding: "40px",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
             <div
               style={{
-                color: "#2563eb",
-                fontSize: 20,
-                fontWeight: 700,
-                letterSpacing: "0.12em",
+                display: "flex",
+                alignItems: "center",
+                gap: 12,
+                color: ACCENT,
+                fontSize: 18,
+                letterSpacing: "0.16em",
                 textTransform: "uppercase",
               }}
             >
-              AI Engineer
+              <div style={{ width: 9, height: 9, background: ACCENT }} />
+              Physical AI Researcher
             </div>
             <div
               style={{
                 display: "flex",
-                fontSize: 60,
-                fontWeight: 800,
+                fontSize: 64,
+                fontWeight: 500,
                 lineHeight: 0.95,
-                letterSpacing: "-0.06em",
+                letterSpacing: "-0.05em",
               }}
             >
               <span>Pranav Prashant Shewale</span>
             </div>
-            <div style={{ maxWidth: 760, color: "#c8c8c8", fontSize: 28, lineHeight: 1.35 }}>
-              Multi-agent workflows, computer vision systems, and edge-ready deployment paths that move from prototype to measurable outcomes.
+            <div style={{ maxWidth: 780, color: "#8f8f8a", fontSize: 26, lineHeight: 1.4 }}>
+              Tactile sensing, sim-to-real reinforcement learning, and perception systems for robots that have to act in the real world.
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: "12px" }}>
-            {["Projects", "Experience", "Skills", "Contact"].map((item) => (
+          <div style={{ display: "flex", gap: "10px" }}>
+            {["Projects", "Experience", "Skills", "Contact"].map((item, i) => (
               <div
                 key={item}
                 style={{
-                  border: "1px solid #333333",
-                  borderRadius: 999,
-                  padding: "10px 18px",
-                  fontSize: 20,
+                  display: "flex",
+                  gap: 10,
+                  border: "1px solid rgba(255,255,255,0.18)",
+                  padding: "8px 14px",
+                  fontSize: 18,
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
                 }}
               >
+                <span style={{ color: "#55555a" }}>0{i + 1}.</span>
                 {item}
               </div>
             ))}
